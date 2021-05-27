@@ -1,0 +1,24 @@
+"data" : {
+	"make":["Audi", "BMW", "Honda", "Ford"],
+	"models":{
+				"Audi":["A3", "A4", "A5"],
+				"BMW":["X5", "X6", "X7"],
+				"Ford":["Focus", "Fiesta"],
+			},
+	"variants":["Diesel", "Petrol", "Electric"],
+	"comparisonFeatures":{"Engine":["Engine Size", "Engine Bore", "Compression", "Cylinders", "Power"], "Dimensions":["Height", "Weight", "Length"], }
+}
+
+
+When you select a variant, you show a data from the following:
+
+"carData":{
+	"carImage":"https://suggestrank.com/images/8795e4a4.jpg", "name":"Honda CRV", "Make":"Honda", "model":"CRV", "year":"2020"
+}
+
+Some more car data:
+
+"carData":{
+	"carImage":"https://suggestrank.com/images/honda-jazz-2017-2019-1519048567.5.jpg", "name":"Honda Jazz", "Make":"Honda", "model":"Jazz", "year":"2019"
+}
+

@@ -1,0 +1,126 @@
+$label-colour: #bbb;
+$disabled-colour: #ddd;
+$toggle-colour: #2ec4b6;
+$white: #fff;
+
+.toggle_switch {
+    position: relative;
+    width: 75px;
+    display: inline-block;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    text-align: left;
+    &_checkbox {
+      display: none;
+    }
+    &_label {
+      display: block;
+      overflow: hidden;
+      cursor: pointer;
+      border: 0 solid $label-colour;
+      border-radius: 20px;
+      margin: 0;
+    }
+    &_inner {
+      display: block;
+      width: 200%;
+      margin-left: -100%;
+      transition: margin 0.3s ease-in 0s;
+      &:before,
+      &:after {
+        display: block;
+        float: left;
+        width: 50%;
+        height: 34px;
+        padding: 0;
+        line-height: 34px;
+        font-size: 14px;
+        color: white;
+        font-weight: bold;
+        box-sizing: border-box;
+      }
+      &:before {
+        content: attr(data-yes);
+        text-transform: uppercase;
+        padding-left: 10px;
+        background-color: $toggle-colour;
+        color: $white;
+      }
+    }
+    &_disabled {
+      background-color: $disabled-colour;
+      cursor: not-allowed;
+      &:before {
+        background-color: $disabled-colour;
+        cursor: not-allowed;
+      }
+    }
+    &_inner:after {
+      content: attr(data-no);
+      text-transform: uppercase;
+      padding-right: 10px;
+      background-color: $label-colour;
+      color: #fff;
+      text-align: right;
+    }
+    &_switch {
+      display: block;
+      width: 24px;
+      margin: 5px;
+      background: $white;
+      border: 0 solid $label-colour;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 40px;
+      border-radius: 20px;
+      transition: all 0.3s ease-in 0s;
+    }
+    &_checkbox:checked + &_label {
+      .toggle_switch_inner {
+        margin-left: 0;
+      }
+      .toggle_switch_switch {
+        right: 0px;
+      }
+    }
+
+    @media screen and (max-width: 991px) {
+        transform: scale(0.9);
+    }
+    @media screen and (max-width: 767px) {
+        transform: scale(0.825);
+    }
+    @media screen and (max-width: 575px) {
+        transform: scale(0.75);
+    }
+
+    &.small_switch {
+        width: 50px;
+        .toggle_switch_inner {
+          &:after,
+          &:before {
+            // content: "";
+            height: 20px;
+            line-height: 20px;
+            font-size: 0.45rem;
+            font-weight: 500;
+          }
+
+          &:after {
+              padding-right: 5px;
+          }
+
+          &:before {
+            padding-left: 5px;
+        }
+        }
+        .toggle_switch_switch {
+          width: 16px;
+          right: 30px;
+          margin: 2px;
+        }
+      }
+  }
