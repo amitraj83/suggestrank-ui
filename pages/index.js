@@ -9,7 +9,9 @@ export default class Home extends React.Component {
 
     constructor(props) {
         super(props);
+        console.log("Transfered props: "+JSON.stringify(props));
         this.state = {
+            makes: props.makes,
             data: {
                 "make":["Audi", "BMW", "Honda", "Ford"],
                 "models":{
@@ -96,7 +98,7 @@ export default class Home extends React.Component {
                             </div>
                             <div className="col-md-8">
                                 <div className="p-4">
-                                    <CompareForm make={this.state.data.make} models={this.state.data.models} variants={this.state.data.variants}/>
+                                    <CompareForm make={this.state.makes} models={this.state.data.models} variants={this.state.data.variants}/>
                                 </div>
                             </div>
                         </div>
@@ -247,3 +249,16 @@ export default class Home extends React.Component {
     }
   
 }
+
+
+export async function getStaticProps() {
+    const res = await fetch(process.env.REACT_APP_API_HOST+"/v2/api/car/makes");
+    const makes = await res.json();
+    console.log(makes)
+    
+  
+    return {
+      props: {"makes":makes}, // will be passed to the page component as props
+      
+    }
+  }
