@@ -252,7 +252,7 @@ export default class Home extends React.Component {
 
 
 export async function getStaticProps() {
-    const res = await fetch(process.env.REACT_APP_API_HOST+"/v2/api/car/makes");
+    const res = await fetch(process.env.REACT_APP_API_HOST+"/api/v2/car/makes");
     const makes = await res.json();
     console.log(makes)
     

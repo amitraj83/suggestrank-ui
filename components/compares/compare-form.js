@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 export default class CompareForm extends Component {
     constructor(props) {
         super(props);
-        console.log(props);
         this.state = {
             make: props.make,
             models: props.models,
@@ -16,20 +15,19 @@ export default class CompareForm extends Component {
         this.changeCar2Make = this.changeCar2Make.bind(this);
     }
 
-    changeCar1Make(event) {
-        console.log(event.target.value);
-
+    async changeCar1Make(event) {
+        this.setState({
+            car1Models: []
+        })
         let val = event.target.value;
 
-        if (this.state.models[val]) {
-            this.setState({
-                car1Models: this.state.models[val]
-            })
-        } else {
-            this.setState({
-                car1Models: []
-            })
-        }
+        const res = await fetch(process.env.NEXT_PUBLIC_REACT_APP_API_HOST+"api/v2/car/models?make="+val);
+        const models = await res.json();
+        
+        this.setState({
+            car1Models: models
+        })
+        
     }
 
     changeCar2Make(event) {
