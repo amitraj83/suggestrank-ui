@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+
 export default class Header extends Component {
   render () {
     return (
@@ -7,20 +8,17 @@ export default class Header extends Component {
             <div className="top-header">
                 <div className="container">
                     <div className="h-left">
-                        <div className="h-item">
-                            <i className="fas fa-phone-alt"></i>
-                            <span>1800-000-0000</span>
-                        </div>
+                        
                         <div className="h-item d-lg-inline-block d-none">
                             <i className="fas fa-envelope"></i>
-                            <span>info@suggestrank.com</span>
+                            <span>&nbsp;suggestrank@gmail.com</span>
                         </div>
                     </div>
                     <div className="h-right">
                         <span>Follow us on</span>
-                        <i className="fab fa-facebook"></i>
-                        <i className="fab fa-twitter"></i>
-                        <i className="fab fa-youtube"></i>
+                        <a href="https://www.facebook.com/suggestrank"><i className="fab fa-facebook"></i></a>
+                        <a href="https://twitter.com/RankSuggest"><i className="fab fa-twitter"></i></a>
+                        <a href="https://www.youtube.com/channel/UCeDWw9Kj-NfyPGBVwhOP1Hw/about"><i className="fab fa-youtube"></i></a>
                         <i className="fab fa-instagram"></i>
                     </div>
                 </div>

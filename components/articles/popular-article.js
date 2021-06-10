@@ -14,12 +14,12 @@ export default class PopularArticle extends Component {
                 <div className="artical-content p-2"> 
                     <div className="article-title">
                         <h6 className="text-dark">
-                            {this.props.articleData.title.length < 40 ? this.props.articleData.title : this.props.articleData.title.substr(0,40) + '...'}
+                            {this.props.articleData.title.length < 50 ? this.props.articleData.title : this.props.articleData.title.substr(0,50) + '...'}
                         </h6>
                     </div>
                     <div>
                         <p className="fs-8">
-                            {this.props.articleData.content.length < 300 ? this.props.articleData.content : this.props.articleData.content.substr(0,300) + '...'}
+                            {this.props.articleData.content.length < 350 ? this.props.articleData.content : this.props.articleData.content.substr(0,350) + '...'}
                         </p>
                     </div>
                 </div>

@@ -4,6 +4,7 @@ import CompareItem from '../components/compares/compare-item'
 import ServiceItem from '../components/services/serice-item'
 import PopularArticle from '../components/articles/popular-article'
 import RecentArticle from '../components/articles/recent-article'
+const { DOMParser } = require('xmldom')
 
 export default class Home extends React.Component {
 
@@ -22,12 +23,7 @@ export default class Home extends React.Component {
                         },
                 "variants":[],
                 "popularComparisons":props.popularComparisons,
-                "popularArticles":[
-                                {"imageUrl":"https://suggestrank.com/blog/wp-content/uploads/2021/03/matteo-catanese-PI8Hk-3ZcCU-unsplash.jpg", "date":"14 May 2021", "title":"CarGurus – No. 1 reviews compilation from 1000s of customers Reviews", "content":"CarGurus is an online marketplace for cars and other vehicles. It lists cars from the local dealers. Buyers can search such cars on CarGurus marketplace, narrow down their search and find out a perfect car for them. Then, the buyer is connected with the dealer to finalize the transactions and delivery."},
-                                {"imageUrl":"https://suggestrank.com/blog/wp-content/uploads/2021/03/arvid-skywalker-ZvVNJOnV3ho-unsplash.jpg", "date":"15 May 2021", "title":"Used cars for sale – 11 facts, last one is the most important", "content":"There are always a number of for/against arguments about buying a used car. Regardless of such arguments, most of the people find used cars for sale and buy it as their first car. Following are some interesting facts that will help you to make an informed decision before buying a used car."},
-                                {"imageUrl":"https://suggestrank.com/blog/wp-content/uploads/2021/03/gabriel-gurrola-u6BPMXgURuI-unsplash.jpg", "date":"16 May 2021", "title":"How much is my EV battery life?", "content":"The lifespan is mostly dependent on the battery of the vehicle. Apart from the battery, rest of the electric vehicle’s component’s lifespan is usually comparable to other conventional cars. So, the ultimate question is how long does the batteries of an electric vehicle survive."},
-                                {"imageUrl":"https://suggestrank.com/blog/wp-content/uploads/2021/03/jasper-geys-NyRe1Mj1pm4-unsplash.jpg", "date":"17 May 2021", "title":"3 way of EV battery charging – last one is amazing", "content":"EV Battery is one of the main components of an electric vehicle. One of the questions comes to our mind is that what are the different types of charging an electric vehicle. There is no standard way to charge an EV battery which is being followed by all EV manufacturers. However, following three ways a battery can be charged."}
-                ],
+                "popularArticles":props.popularArticles,
                 "recentArticles":[
                                 {"imageUrl":"https://suggestrank.com/blog/wp-content/uploads/2021/03/matteo-catanese-PI8Hk-3ZcCU-unsplash.jpg", "date":"14 May 2021", "title":"CarGurus – No. 1 reviews compilation from 1000s of customers Reviews", "content":"CarGurus is an online marketplace for cars and other vehicles. It lists cars from the local dealers. Buyers can search such cars on CarGurus marketplace, narrow down their search and find out a perfect car for them. Then, the buyer is connected with the dealer to finalize the transactions and delivery."},
                                 {"imageUrl":"https://suggestrank.com/blog/wp-content/uploads/2021/03/arvid-skywalker-ZvVNJOnV3ho-unsplash.jpg", "date":"14 May 2021", "title":"Used cars for sale – 11 facts, last one is the most important", "content":"There are always a number of for/against arguments about buying a used car. Regardless of such arguments, most of the people find used cars for sale and buy it as their first car. Following are some interesting facts that will help you to make an informed decision before buying a used car."},
@@ -238,9 +234,23 @@ export async function getStaticProps() {
     
     const comparisonsResults = await fetch(process.env.REACT_APP_API_HOST+"/api/v2/car/popular-comparisons");
     const comparisons = await comparisonsResults.json();
-  
+
+    const postsResult = await fetch("https://suggestrank.com/blog/wp-json/wp/v2/posts?&page=1&per_page=4&_embed");
+    const posts = await postsResult.json();
+    var postsArray = [];
+    for (var i = 0; i < posts.length; i++) {
+        var post = posts[i];
+        var imageUrl = post.qubely_featured_image_url.portraits[0];
+        var date = new Date(post.date).toDateString();
+        var title = post.title.rendered.replace(/\s\s+/g, ' ').replace(/<[^>]+>/g, '').replace("&#8211;", " - ");
+        // var content = new DOMParser().parseFromString(post.content.rendered.replace(/\s\s+/g, ' '), "text/html").documentElement.textContent.replace(/\n/g, '').replace(/(.{2000}).+/, "$1...");
+        var content = post.content.rendered.replace(/\s\s+/g, ' ').replace(/<[^>]+>/g, '');
+        
+        postsArray.push({"imageUrl":imageUrl, "date":date, "title":title, "content":content});
+    }
+    
     return {
-      props: {"makes":makes, "popularComparisons":comparisons}, // will be passed to the page component as props
+      props: {"makes":makes, "popularComparisons":comparisons, "popularArticles":postsArray}, // will be passed to the page component as props
       
     }
   }
