@@ -19,7 +19,7 @@ export default class Home extends React.Component {
                             "BMW":["X5", "X6", "X7"],
                             "Ford":["Focus", "Fiesta"],
                         },
-                "variants":["Diesel", "Petrol", "Electric"],
+                "variants":[],
                 "popularComparisons":[
                     {"imageUrl1":"https://suggestrank.com/images/mazda-atenza-2018-2019-1537376293.68.jpg", "name1":"Mazda Roadster", "variant1":"2.0 TDI","imageUrl2":"https://suggestrank.com/images/mazda-roadster-2015-2019-1520489007.03.jpg", "name2":"Mazda 6", "variant2":"2.0 iTDxz"},
                     {"imageUrl1":"https://suggestrank.com/images/audi-a3-2016-2018-1498129622.34.jpg", "name1":"Audi A6", "variant1":"2.0 TDI","imageUrl2":"https://suggestrank.com/images/audi-a4-2016-2017-1455205004.51.jpg", "name2":"Audi A3", "variant2":"2.0 iTDxz"},
