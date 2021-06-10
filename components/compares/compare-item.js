@@ -10,20 +10,20 @@ export default class CompareItem extends Component {
                 <div className="row">
                     <div className="col-6 compare-item-left">
                         <div className="item-img">
-                            <img src={this.props.compareData.imageUrl1} />
+                            <img src={"/images/"+this.props.compareData.car1Image} />
                         </div>
                         <div className="value">
-                            <label className="d-block fw-bold">{this.props.compareData.name1}</label>
-                            <span className="fs-8">Rs 7.59lakh</span>
+                            <label className="d-block fw-bold">{(this.props.compareData.car1Make +" "+this.props.compareData.car1Model).replace(/(.{17}).+/, "$1...")}</label>
+                            <span className="fs-8">{this.props.compareData.car1Trim.replace(/(.{22}).+/, "$1...")}</span>
                         </div>
                     </div>
                     <div className="col-6 compare-item-right">
                         <div className="item-img">
-                            <img src={this.props.compareData.imageUrl2} />
+                            <img src={"/images/"+this.props.compareData.car2Image} />
                         </div>
                         <div className="value">
-                            <label className="d-block fw-bold">{this.props.compareData.name2}</label>
-                            <span className="fs-8">Rs 7.59lakh</span>
+                            <label className="d-block fw-bold">{(this.props.compareData.car2Make +" "+this.props.compareData.car2Model).replace(/(.{17}).+/, "$1...")}</label>
+                            <span className="fs-8">{this.props.compareData.car2Trim.replace(/(.{22}).+/, "$1...")}</span>
                         </div>
                     </div>
                 </div>

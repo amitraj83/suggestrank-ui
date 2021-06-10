@@ -11,6 +11,7 @@ export default class Home extends React.Component {
         super(props);
         console.log("Transfered props: "+JSON.stringify(props));
         this.state = {
+            popularComparisonsPage:1,
             makes: props.makes,
             data: {
                 "make":["Audi", "BMW", "Honda", "Ford"],
@@ -20,16 +21,7 @@ export default class Home extends React.Component {
                             "Ford":["Focus", "Fiesta"],
                         },
                 "variants":[],
-                "popularComparisons":[
-                    {"imageUrl1":"https://suggestrank.com/images/mazda-atenza-2018-2019-1537376293.68.jpg", "name1":"Mazda Roadster", "variant1":"2.0 TDI","imageUrl2":"https://suggestrank.com/images/mazda-roadster-2015-2019-1520489007.03.jpg", "name2":"Mazda 6", "variant2":"2.0 iTDxz"},
-                    {"imageUrl1":"https://suggestrank.com/images/audi-a3-2016-2018-1498129622.34.jpg", "name1":"Audi A6", "variant1":"2.0 TDI","imageUrl2":"https://suggestrank.com/images/audi-a4-2016-2017-1455205004.51.jpg", "name2":"Audi A3", "variant2":"2.0 iTDxz"},
-                    {"imageUrl1":"https://suggestrank.com/images/daewoo-leganza-1997-2008-1469775082.98.jpg", "name1":"Daewoo - Nubira", "variant1":"2.0 TDI","imageUrl2":"https://suggestrank.com/images/daewoo-nubira-2002-2015-1470036230.57.jpg", "name2":"Daewoo - Leganza", "variant2":"2.0 iTDxz"},
-                    {"imageUrl1":"https://suggestrank.com/images/2ba7ca71.jpg", "name1":"Fiat Linea", "variant1":"2.0 TDI","imageUrl2":"https://suggestrank.com/images/45b2e9c1.jpg", "name2":"Fiat Ulysse", "variant2":"2.0 iTDxz"},
-                    {"imageUrl1":"https://suggestrank.com/images/mazda-atenza-2018-2019-1537376293.68.jpg", "name1":"Mazda Roadster", "variant1":"2.0 TDI","imageUrl2":"https://suggestrank.com/images/mazda-roadster-2015-2019-1520489007.03.jpg", "name2":"Mazda 6", "variant2":"2.0 iTDxz"},
-                    {"imageUrl1":"https://suggestrank.com/images/audi-a3-2016-2018-1498129622.34.jpg", "name1":"Audi A6", "variant1":"2.0 TDI","imageUrl2":"https://suggestrank.com/images/audi-a4-2016-2017-1455205004.51.jpg", "name2":"Audi A3", "variant2":"2.0 iTDxz"},
-                    {"imageUrl1":"https://suggestrank.com/images/daewoo-leganza-1997-2008-1469775082.98.jpg", "name1":"Daewoo - Nubira", "variant1":"2.0 TDI","imageUrl2":"https://suggestrank.com/images/daewoo-nubira-2002-2015-1470036230.57.jpg", "name2":"Daewoo - Leganza", "variant2":"2.0 iTDxz"},
-                    {"imageUrl1":"https://suggestrank.com/images/2ba7ca71.jpg", "name1":"Fiat Linea", "variant1":"2.0 TDI","imageUrl2":"https://suggestrank.com/images/45b2e9c1.jpg", "name2":"Fiat Ulysse", "variant2":"2.0 iTDxz"},
-                ],
+                "popularComparisons":props.popularComparisons,
                 "popularArticles":[
                                 {"imageUrl":"https://suggestrank.com/blog/wp-content/uploads/2021/03/matteo-catanese-PI8Hk-3ZcCU-unsplash.jpg", "date":"14 May 2021", "title":"CarGurus – No. 1 reviews compilation from 1000s of customers Reviews", "content":"CarGurus is an online marketplace for cars and other vehicles. It lists cars from the local dealers. Buyers can search such cars on CarGurus marketplace, narrow down their search and find out a perfect car for them. Then, the buyer is connected with the dealer to finalize the transactions and delivery."},
                                 {"imageUrl":"https://suggestrank.com/blog/wp-content/uploads/2021/03/arvid-skywalker-ZvVNJOnV3ho-unsplash.jpg", "date":"15 May 2021", "title":"Used cars for sale – 11 facts, last one is the most important", "content":"There are always a number of for/against arguments about buying a used car. Regardless of such arguments, most of the people find used cars for sale and buy it as their first car. Following are some interesting facts that will help you to make an informed decision before buying a used car."},
@@ -42,41 +34,32 @@ export default class Home extends React.Component {
                                 {"imageUrl":"https://suggestrank.com/blog/wp-content/uploads/2021/03/gabriel-gurrola-u6BPMXgURuI-unsplash.jpg", "date":"14 May 2021", "title":"How much is my EV battery life?", "content":"The lifespan is mostly dependent on the battery of the vehicle. Apart from the battery, rest of the electric vehicle’s component’s lifespan is usually comparable to other conventional cars. So, the ultimate question is how long does the batteries of an electric vehicle survive."},
                                 {"imageUrl":"https://suggestrank.com/blog/wp-content/uploads/2021/03/jasper-geys-NyRe1Mj1pm4-unsplash.jpg", "date":"14 May 2021", "title":"3 way of EV battery charging – last one is amazing", "content":"EV Battery is one of the main components of an electric vehicle. One of the questions comes to our mind is that what are the different types of charging an electric vehicle. There is no standard way to charge an EV battery which is being followed by all EV manufacturers. However, following three ways a battery can be charged."}
                 ]
-            },
-            compareDActiveNumber: 0,
-            compareMActiveNumber: 0
+            }
+            
         };
 
         this.prewCompare = this.prewCompare.bind(this);
         this.nextCompare = this.nextCompare.bind(this);
     }
 
-    prewCompare() {
-        if (this.state.compareDActiveNumber != 0) {
-            this.setState({
-                compareDActiveNumber: this.state.compareDActiveNumber - 1
-            })
-        }
-
-        if (this.state.compareMActiveNumber != 0) {
-            this.setState({
-                compareMActiveNumber: this.state.compareMActiveNumber - 1
-            })
-        }
+    async prewCompare() {
+        if (this.state.popularComparisonsPage > 1) {
+            await this.setState({popularComparisonsPage: this.state.popularComparisonsPage - 1})
+        } 
+        const res = await fetch(process.env.NEXT_PUBLIC_REACT_APP_API_HOST+"/api/v2/car/popular-comparisons?page="+this.state.popularComparisonsPage);
+        const comps = await res.json();
+        this.setState({ "data": {"popularComparisons":comps} });
     }
 
-    nextCompare() {
-        if (this.state.compareDActiveNumber < this.state.data.popularComparisons.length - 4) {
-            this.setState({
-                compareDActiveNumber: this.state.compareDActiveNumber + 1
-            })
-        }
-
-        if (this.state.compareMActiveNumber < this.state.data.popularComparisons.length - 1) {
-            this.setState({
-                compareMActiveNumber: this.state.compareMActiveNumber + 1
-            })
-        }
+    async nextCompare() {
+        console.log(this.state.popularComparisonsPage);
+        await this.setState({popularComparisonsPage: this.state.popularComparisonsPage + 1})
+        console.log(this.state.popularComparisonsPage);
+        const res = await fetch(process.env.NEXT_PUBLIC_REACT_APP_API_HOST+"/api/v2/car/popular-comparisons?page="+this.state.popularComparisonsPage);
+        const comps = await res.json();
+        
+        console.log("Next Comps: "+JSON.stringify(comps));
+        this.setState({ "data": {"popularComparisons":comps} });
     }
     render() {
         return (
@@ -124,20 +107,18 @@ export default class Home extends React.Component {
                     <div className="section-content">
                         <div className="d-none d-sm-block">
                             <div className="row">
-                                {this.state.data.popularComparisons&&this.state.data.popularComparisons.map((item, index) => {
-                                    return index - this.state.compareDActiveNumber < 4 && index -this.state.compareDActiveNumber >= 0?
+                                {this.state.data.popularComparisons && this.state.data.popularComparisons.map((item, index) => 
                                     <div className="col-sm-3">
                                         <CompareItem compareData={item} key={index}/>
                                     </div>
-                                    :
-                                    ''
-                                })}
+                                    
+                                )}
                             </div>
                             
                         </div>
-                        <div className="d-sm-none">
+                        {/* <div className="d-sm-none">
                             <CompareItem compareData={this.state.data.popularComparisons[this.state.compareMActiveNumber]}/>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </div>
@@ -254,11 +235,12 @@ export default class Home extends React.Component {
 export async function getStaticProps() {
     const res = await fetch(process.env.REACT_APP_API_HOST+"/api/v2/car/makes");
     const makes = await res.json();
-    console.log(makes)
     
+    const comparisonsResults = await fetch(process.env.REACT_APP_API_HOST+"/api/v2/car/popular-comparisons");
+    const comparisons = await comparisonsResults.json();
   
     return {
-      props: {"makes":makes}, // will be passed to the page component as props
+      props: {"makes":makes, "popularComparisons":comparisons}, // will be passed to the page component as props
       
     }
   }
