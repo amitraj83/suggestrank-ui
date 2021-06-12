@@ -19,8 +19,8 @@ export default class FeaturesItemCompared extends Component {
                 }
 
                 { this.props.data.higher
-                    ?   <i class="fal fa-long-arrow-up"></i>
-                    :   <i class="fal fa-long-arrow-down"></i>
+                    ?   <i  class="fal fa-long-arrow-up"></i>
+                    :   <i style={{color:"red"}} class="fal fa-long-arrow-down"></i>
                 }
 
 

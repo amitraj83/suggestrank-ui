@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Link from 'next/link'
 
 export default class PopularArticle extends Component {
     constructor(props) {
@@ -6,6 +7,7 @@ export default class PopularArticle extends Component {
     }
     render() {
         return (
+            <Link href={this.props.articleData.link} >
             <div className="article popular">
                 <div className="image-wrapper" style={{ backgroundImage: `url(${this.props.articleData.imageUrl})` }}>
                     {/* <img src={this.props.articleData.imageUrl} /> */}
@@ -24,6 +26,7 @@ export default class PopularArticle extends Component {
                     </div>
                 </div>
             </div>
+            </Link>
         )
     }
 }

@@ -51,7 +51,6 @@ export default class Compare extends React.Component {
             )
             
         });
-        console.log(features_items);
         return (
             <div className="page-car section pt-2 page-wrapper">
                 <div className="container">

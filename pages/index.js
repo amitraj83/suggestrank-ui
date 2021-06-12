@@ -10,7 +10,6 @@ export default class Home extends React.Component {
 
     constructor(props) {
         super(props);
-        console.log("Transfered props: "+JSON.stringify(props));
         this.state = {
             popularComparisonsPage:1,
             makes: props.makes,
@@ -48,13 +47,10 @@ export default class Home extends React.Component {
     }
 
     async nextCompare() {
-        console.log(this.state.popularComparisonsPage);
         await this.setState({popularComparisonsPage: this.state.popularComparisonsPage + 1})
-        console.log(this.state.popularComparisonsPage);
         const res = await fetch(process.env.NEXT_PUBLIC_REACT_APP_API_HOST+"/api/v2/car/popular-comparisons?page="+this.state.popularComparisonsPage);
         const comps = await res.json();
         
-        console.log("Next Comps: "+JSON.stringify(comps));
         this.setState({ "data": {"popularComparisons":comps} });
     }
     render() {
@@ -130,39 +126,37 @@ export default class Home extends React.Component {
                     <div className="section-content">
                         <div className="row">
                             <div className="col-md-6">
-                                <p className="fs-7">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed malesuada nisl in elit 
-                                ullamcorper condimentum. Aliquam enim metus, egestas quis libero quis, iaculis volutpat 
-                                felis.</p>
+                                <p className="fs-7">Comparison of two things is not always easy. Moreover, a comparison results 
+                                may be useful for one person but not for other. Its because different persons have different
+                                comparison criteria.</p>
         
-                                <p className="fs-7">Nunc nulla dui, mollis ac justo in, dictum porttitor dolor. Vivamus non pulvinar metus, a 
-                                blandit erat. Integer eget pharetra orci. Nulla sapien libero, consequat eget leo quis, 
-                                vehicula sodales mauris. Proin magna lacus, condimentum et sapien a, volutpat scelerisque 
-                                augue. Morbi quam tortor, accumsan pharetra diam id, commodo sodales turpis. Nam et 
-                                rutrum mi.</p>
+                                <p className="fs-7">SuggestRank presents an innovative Car Comparison tool which lets you customize 
+                                your own comparison. You can define your own car comparison criteria, select cars and compare. The
+                                results will be very specific to your needs. It also suggest the ranking between the cars so that
+                                you can easily decide which car is better. </p>
         
-                                <p className="fs-7">Interdum et malesuada fames ac ante ipsum primis in faucibus. Nullam elementum est 
-                                quis odio mollis convallis. Maecenas interdum dui venenatis leo tincidunt, sit amet laoreet 
-                                dolor varius. Sed placerat feugiat justo ut elementum. Mauris euismod nulla eget mi 
-                                fermentum varius.</p>
+                                <p className="fs-7">1000s of people are using this tool every day to check which car is better. So, 
+                                before you buy your next car, compare cars with SuggestRank and find out which car is better for your
+                                needs. </p>
                             </div>
                             <div className="col-md-6">
                                 <div className="row">
                                     <div className="col-md-6 mb-3">
-                                        <ServiceItem reverse={true}/>
+                                        <ServiceItem data={{"title":"Cars Comparison", "description":"Select car compairson criteria such as engine size, carbon emission, number of cylinders, etc., and do a comparison. You can compare cars side by side and compare each specs. Also explains why a car is better than other one."}} reverse={true}/>
                                     </div>
                                     <div className="col-md-6 mb-3">
-                                        <ServiceItem/>
+                                        <ServiceItem data={{"title":"Cars Ranking", "description":"Unlike other car comparisons, we do the ranking of the cars as well. So, you get a decision automatically about which car is better. We do rankings based on several specs and then present a collective rank of cars."}} />
                                     </div>
         
                                 </div>
                                 <div className="row flex-row-reverse">
                                     
                                     <div className="col-md-6 mb-3">
-                                        <ServiceItem reverse={true}/>
+                                        <ServiceItem data={{"title":"Cars Data", "description":"If you are looking for cars data, we would be happy to share. We have data for more than 100K cars. Each car has more than 30+ specs. Please contact us at suggestrank@gmail.com"}}  reverse={true}/>
                                     </div>
         
                                     <div className="col-md-6 mb-3">
-                                        <ServiceItem/>
+                                        <ServiceItem data={{"title":"Cars Specs", "description":"We have possibly all makes and models. So, if you are looking for the car specs of any car, we have them for you. You can check the specs related to Engine, dimensions, power, emission, etc."}} />
                                     </div>
                                 </div>
                             </div>
@@ -173,7 +167,7 @@ export default class Home extends React.Component {
         
             <div className="section text-end section-action">
                 <div className="container">
-                    <h1>Are you confused <br/>between multiple cars to<br/>choose from?</h1>
+                    <h1>Are you planning <br/>to buy a new car,<br/>compare cars today.</h1>
                     <h4>Our car comparison tool helps you with <br/>clear difference between your chosen cars.</h4>
         
                     <button className="btn-compare">Compare</button>
@@ -191,7 +185,7 @@ export default class Home extends React.Component {
                             <div className="section-content">
                                 <div className="row">
                                     {this.state.data.popularArticles&&this.state.data.popularArticles.map((item, index) =>
-                                        <div className="col-md-6 mb-2">
+                                        <div style={{cursor:"pointer"}} className="col-md-6 mb-2">
                                             <PopularArticle articleData={item} key={index}/>
                                         </div>
                                     )}
@@ -245,8 +239,8 @@ export async function getStaticProps() {
         var title = post.title.rendered.replace(/\s\s+/g, ' ').replace(/<[^>]+>/g, '').replace("&#8211;", " - ");
         // var content = new DOMParser().parseFromString(post.content.rendered.replace(/\s\s+/g, ' '), "text/html").documentElement.textContent.replace(/\n/g, '').replace(/(.{2000}).+/, "$1...");
         var content = post.content.rendered.replace(/\s\s+/g, ' ').replace(/<[^>]+>/g, '');
-        
-        postsArray.push({"imageUrl":imageUrl, "date":date, "title":title, "content":content});
+        var link = post.link;
+        postsArray.push({"imageUrl":imageUrl, "date":date, "title":title, "content":content, "link":link});
     }
     
     return {

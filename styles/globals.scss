@@ -51,17 +51,21 @@ body {
 .banner {
   color: white;
   position: relative;
+  
+  
+  
 
   .banner-background {
       position: absolute;
-      background-image: url(../public/image/banner-back.jpg);
+      background: linear-gradient(0deg, rgba(26, 25, 25, 0.4), rgba(26, 25, 25, 0.4)), url(../public/image/banner-back.jpg)  ;
       top: 0;
       right: 0;
       left: 0;
-      height: 90%;
+      height: 85%;
       z-index: -1;
       background-size: cover;
       background-position-y: center;
+      
   }
   .banner-text-wrapper {
       padding-top: 8%;

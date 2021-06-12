@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Link from 'next/link'
 
 export default class CompareItem extends Component {
     constructor(props) {
@@ -6,7 +7,8 @@ export default class CompareItem extends Component {
     }
     render() {
         return (
-            <div className="compare-item">
+            <Link href={this.props.compareData.url} >
+            <div className="compare-item" style={{cursor:"pointer"}}>
                 <div className="row">
                     <div className="col-6 compare-item-left">
                         <div className="item-img">
@@ -32,6 +34,7 @@ export default class CompareItem extends Component {
                     <img src="image/vs-orange.png" />
                 </div>
             </div>
+            </Link>
         )
     }
 }

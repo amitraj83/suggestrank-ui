@@ -1,22 +1,22 @@
 import React from 'react'
-import FeaturesItem from '../components/comparision_features/features_item'
-import FeaturesItemCompared from '../components/comparision_features/features_item_compared'
-import CardDescription from '../components/basic/card_description'
-import CompareItem from '../components/compares/compare-item'
-import ComparedData from '../components/compares/compared_data'
-import ProgressBar from '../components/basic/progressbar'
+import FeaturesItem from '../../../../components/comparision_features/features_item'
+import FeaturesItemCompared from '../../../../components/comparision_features/features_item_compared'
+import CardDescription from '../../../../components/basic/card_description'
+import CompareItem from '../../../../components/compares/compare-item'
+import CompareResultCar from '../../../../components/compares/compare-car'
+import ComparedData from '../../../../components/compares/compared_data'
+import ProgressBar from '../../../../components/basic/progressbar'
 
-export default class Compared extends React.Component {
+export default class CarComparisonResult extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            threeCarsComparison: false,
+            popularComparisonsPage:1,
             data: {
                 "desc1": {
-                    "title": "Kia Sonet vs Tata Nexon - Comparision", 
-                    "content": `Suspendisse scelerisque quis diam ut commodo. Maecenas efficitur mauris feugiat velit cursus ullamcorper. Proin tempor volutpat magna in pretium. Ut 
-                                congue aliquam risus, eget auctor neque auctor et. Nam bibendum mi quis aliquam vehicula.Nulla facilisi. Suspendisse fringilla ipsum faucibus libero auctor 
-                                mollis. Nam rhoncus odio metus, non tristique enim finibus quis. Aenean semper tempor urna quis feugiat. Suspendisse tortor tellus, laoreet ut urna ac, 
-                                tempus dapibus nisi. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.`
+                    "title": props.title, 
+                    "content": props.headPara
                 },
                 "desc2": {
                     "title": "Kia Sonet vs Tata Nexon - Model Year", 
@@ -68,104 +68,73 @@ export default class Compared extends React.Component {
                                 tempus dapibus nisi. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.`
                 },
 
-                "comparisonFeatures": {
-                    "Engine": [
-                        {"name": "Engine Size", "higher": true},
-                        {"name": "Engine Bore", "higher": false},
-                        {"name": "Compression", "higher": true},
-                        {"name": "Cylinders", "higher": false},
-                        {"name": "Power", "higher": true},
-                    ], 
-                    "Dimensions":[
-                        {"name": "Height", "higher": true},
-                        {"name": "Weight", "higher": false},
-                        {"name": "Length", "higher": true}
-                    ]
-                },
+                "comparisonFeatures":props.comparisonFeatures
+                ,
                 "car1Data":{
                     "carImage":"https://suggestrank.com/images/8795e4a4.jpg", "name":"Honda CRV", "make":"Honda", "model":"CRV", "year":"2020"
                 },
                 "car2Data":{
                     "carImage":"https://suggestrank.com/images/honda-jazz-2017-2019-1519048567.5.jpg", "name":"Honda Jazz", "make":"Honda", "model":"Jazz", "year":"2019"
                 },
-                "popularComparisons":[
-                    {"imageUrl1":"https://suggestrank.com/images/mazda-atenza-2018-2019-1537376293.68.jpg", "name1":"Mazda Roadster", "variant1":"2.0 TDI","imageUrl2":"https://suggestrank.com/images/mazda-roadster-2015-2019-1520489007.03.jpg", "name2":"Mazda 6", "variant2":"2.0 iTDxz"},
-                    {"imageUrl1":"https://suggestrank.com/images/audi-a3-2016-2018-1498129622.34.jpg", "name1":"Audi A6", "variant1":"2.0 TDI","imageUrl2":"https://suggestrank.com/images/audi-a4-2016-2017-1455205004.51.jpg", "name2":"Audi A3", "variant2":"2.0 iTDxz"},
-                    {"imageUrl1":"https://suggestrank.com/images/daewoo-leganza-1997-2008-1469775082.98.jpg", "name1":"Daewoo - Nubira", "variant1":"2.0 TDI","imageUrl2":"https://suggestrank.com/images/daewoo-nubira-2002-2015-1470036230.57.jpg", "name2":"Daewoo - Leganza", "variant2":"2.0 iTDxz"},
-                    {"imageUrl1":"https://suggestrank.com/images/2ba7ca71.jpg", "name1":"Fiat Linea", "variant1":"2.0 TDI","imageUrl2":"https://suggestrank.com/images/45b2e9c1.jpg", "name2":"Fiat Ulysse", "variant2":"2.0 iTDxz"},
-                    {"imageUrl1":"https://suggestrank.com/images/mazda-atenza-2018-2019-1537376293.68.jpg", "name1":"Mazda Roadster", "variant1":"2.0 TDI","imageUrl2":"https://suggestrank.com/images/mazda-roadster-2015-2019-1520489007.03.jpg", "name2":"Mazda 6", "variant2":"2.0 iTDxz"},
-                    {"imageUrl1":"https://suggestrank.com/images/audi-a3-2016-2018-1498129622.34.jpg", "name1":"Audi A6", "variant1":"2.0 TDI","imageUrl2":"https://suggestrank.com/images/audi-a4-2016-2017-1455205004.51.jpg", "name2":"Audi A3", "variant2":"2.0 iTDxz"},
-                    {"imageUrl1":"https://suggestrank.com/images/daewoo-leganza-1997-2008-1469775082.98.jpg", "name1":"Daewoo - Nubira", "variant1":"2.0 TDI","imageUrl2":"https://suggestrank.com/images/daewoo-nubira-2002-2015-1470036230.57.jpg", "name2":"Daewoo - Leganza", "variant2":"2.0 iTDxz"},
-                    {"imageUrl1":"https://suggestrank.com/images/2ba7ca71.jpg", "name1":"Fiat Linea", "variant1":"2.0 TDI","imageUrl2":"https://suggestrank.com/images/45b2e9c1.jpg", "name2":"Fiat Ulysse", "variant2":"2.0 iTDxz"},
-                ],
+                "car3Data":{
+                    "carImage":"https://suggestrank.com/images/honda-jazz-2017-2019-1519048567.5.jpg", "name":"Honda Jazz", "make":"Honda", "model":"Jazz", "year":"2019"
+                },
+                "popularComparisons":props.popularComparisons,
                 "comparedData": [
                     {
                         "categoryName": "Engine", "image": "image/motor.png",
                         "details": [
-                            { "name": "Engine Size (CC)", "car1": "1197cc", "car2": "1197cc" },
-                            { "name": "Engine Bore", "car1": "0", "car2": "0" },
-                            { "name": "Engine Compression", "car1": "9.6", "car2": "9.6" },
-                            { "name": "Engine Cylinder", "car1": "4", "car2": "4" },
-                            { "name": "Engine Fuel", "car1": "Premium Unleaded", "car2": "Premium Unleaded" },
-                            { "name": "Engine Position", "car1": "Front", "car2": "Front" },
-                            { "name": "Engine Power", "car1": "565", "car2": "565" },
+                            { "name": "Engine Size (CC)", "car1": "1197cc", "car2": "1197cc","car3": "1197cc" },
+                            { "name": "Engine Bore", "car1": "0", "car2": "0", "car3": "0" },
+                            { "name": "Engine Compression", "car1": "9.6", "car2": "9.6" , "car3": "9.6" },
+                            { "name": "Engine Cylinder", "car1": "4", "car2": "4", "car3": "4" },
+                            { "name": "Engine Fuel", "car1": "Premium Unleaded", "car2": "Premium Unleaded", "car3": "Premium Unleaded" },
+                            { "name": "Engine Position", "car1": "Front", "car2": "Front", "car3": "Front" },
+                            { "name": "Engine Power", "car1": "565", "car2": "565", "car3": "565" },
                         ]
                     },
                     {
                         "categoryName": "Dimension & wight", "image": "image/ruler.png",
                         "details": [
-                            { "name": "Length", "car1": "3995mm", "car2": "3995mm" },
+                            { "name": "Length", "car1": "3995mm", "car2": "3995mm", "car3": "3995mm" },
                         ]
                     },
                     {
                         "categoryName": "Engine", "image": "image/manual-transmission.png",
                         "details": [
-                            { "name": "Engine Size (CC)", "car1": "1197cc", "car2": "1197cc" },
+                            { "name": "Engine Size (CC)", "car1": "1197cc", "car2": "1197cc", "car3": "1197cc" },
                         ]
                     },
                     {
                         "categoryName": "Engine", "image": "image/tire.png",
                         "details": [
-                            { "name": "Engine Size (CC)", "car1": "1197cc", "car2": "1197cc" },
+                            { "name": "Engine Size (CC)", "car1": "1197cc", "car2": "1197cc", "car3": "1197cc" },
                         ]
                     }
                 ]
             },
 
-            compareDActiveNumber: 0,
-            compareMActiveNumber: 0
         };
 
         this.prewCompare = this.prewCompare.bind(this);
         this.nextCompare = this.nextCompare.bind(this);
     }
 
-    prewCompare() {
-        if (this.state.compareDActiveNumber != 0) {
-            this.setState({
-                compareDActiveNumber: this.state.compareDActiveNumber - 1
-            })
-        }
-
-        if (this.state.compareMActiveNumber != 0) {
-            this.setState({
-                compareMActiveNumber: this.state.compareMActiveNumber - 1
-            })
-        }
+    async prewCompare() {
+        if (this.state.popularComparisonsPage > 1) {
+            await this.setState({popularComparisonsPage: this.state.popularComparisonsPage - 1})
+        } 
+        const res = await fetch(process.env.NEXT_PUBLIC_REACT_APP_API_HOST+"/api/v2/car/popular-comparisons?page="+this.state.popularComparisonsPage);
+        const comps = await res.json();
+        this.setState({ "data": {"popularComparisons":comps} });
     }
 
-    nextCompare() {
-        if (this.state.compareDActiveNumber < this.state.data.popularComparisons.length - 4) {
-            this.setState({
-                compareDActiveNumber: this.state.compareDActiveNumber + 1
-            })
-        }
-
-        if (this.state.compareMActiveNumber < this.state.data.popularComparisons.length - 1) {
-            this.setState({
-                compareMActiveNumber: this.state.compareMActiveNumber + 1
-            })
-        }
+    async nextCompare() {
+        await this.setState({popularComparisonsPage: this.state.popularComparisonsPage + 1})
+        const res = await fetch(process.env.NEXT_PUBLIC_REACT_APP_API_HOST+"/api/v2/car/popular-comparisons?page="+this.state.popularComparisonsPage);
+        const comps = await res.json();
+        
+        this.setState({ "data": {"popularComparisons":comps} });
     }
 
     componentDidMount() {
@@ -191,29 +160,18 @@ export default class Compared extends React.Component {
                                         <div className="features-items">
                                             <div className="features-item-wrapper mb-1">
                                                 <div className="toggler clearfix" data-bs-toggle="collapse" href="#engine-collapse" role="button" aria-expanded="false" aria-controls="collapseExample">
-                                                    <h6 className="float-start">Engine</h6>
+                                                    
                                                     <i className="fal fa-chevron-down float-end"></i>
                                                 </div>
                                                 <div className="collapse show" id="engine-collapse">
                                                     <div className="divider mb-1"></div>
-                                                    {this.state.data.comparisonFeatures.Engine&&this.state.data.comparisonFeatures.Engine.map((item, index) =>
+                                                    {this.state.data.comparisonFeatures&&this.state.data.comparisonFeatures.map((item, index) =>
                                                         <FeaturesItemCompared data={item} />
                                                     )}
                                                 </div>
                                             </div>
 
-                                            <div className="features-item-wrapper mb-1">
-                                                <div className="toggler clearfix" data-bs-toggle="collapse" href="#dimension-collapse" role="button" aria-expanded="false" aria-controls="collapseExample">
-                                                    <h6 className="float-start">Dimension & Weight</h6>
-                                                    <i className="fal fa-chevron-down float-end"></i>
-                                                </div>
-                                                <div className="collapse show" id="dimension-collapse">
-                                                    <div className="divider mb-1"></div>
-                                                    {this.state.data.comparisonFeatures.Dimensions&&this.state.data.comparisonFeatures.Dimensions.map((item, index) =>
-                                                        <FeaturesItemCompared data={item} />
-                                                    )}
-                                                </div>
-                                            </div>
+                                            
 
                                         </div>
                                     </div>
@@ -239,7 +197,7 @@ export default class Compared extends React.Component {
                                                     </div>
                                                     <div className="collapse" id="engine-collapse">
                                                         <div className="divider mb-1"></div>
-                                                        {this.state.data.comparisonFeatures.Engine&&this.state.data.comparisonFeatures.Engine.map((item, index) =>
+                                                        {this.state.data.comparisonFeatures &&this.state.data.comparisonFeatures.map((item, index) =>
                                                             <FeaturesItemCompared data={item} />
                                                         )}
                                                     </div>
@@ -252,7 +210,7 @@ export default class Compared extends React.Component {
                                                     </div>
                                                     <div className="collapse" id="dimension-collapse">
                                                         <div className="divider mb-1"></div>
-                                                        {this.state.data.comparisonFeatures.Dimensions&&this.state.data.comparisonFeatures.Dimensions.map((item, index) =>
+                                                        {this.state.data.comparisonFeatures&&this.state.data.comparisonFeatures.map((item, index) =>
                                                             <FeaturesItemCompared data={item} />
                                                         )}
                                                     </div>
@@ -264,84 +222,38 @@ export default class Compared extends React.Component {
 
                                         <div className="compare-car mb-4 bg-white p-3 pt-4 mt-4">
                                             <div className="row">
-                                                <div className="col-6 compare-item-left">
-                                                    <div className="rank-wrapper winner mb-3">
-                                                        <div className="rank d-inline-block text-center">
-                                                            <span className="d-block number fw-bold fs-5">1</span>
-                                                            <span className="d-block fs-8 fw-bold">RANK</span>
-                                                        </div>
-                                                        <div className="winnder-item d-none d-lg-inline-block ms-3">
-                                                            <i class="far fa-thumbs-up me-1"></i>
-                                                            <span className="fs-8 fw-bold">WINNER</span>
-                                                        </div>
-                                                    </div>
-
-                                                    <div className="item-img mb-3">
-                                                        <img src={this.state.data.car1Data.carImage} />
-                                                    </div>
-                                                    <div className="value mb-4">
-                                                        <label className="d-block fw-bold">Kia Sonet</label>
-                                                        <span className="fs-8">Rs 7.59lakh</span>
-                                                    </div>
-                                                    <div className="row value-details">
-                                                        <div className="col-md-4 mb-2">
-                                                            <div className="value">
-                                                                <span className="fs-8">Make</span>
-                                                                <label className="d-block fw-bold">{this.state.data.car1Data.make}</label>
-                                                            </div>  
-                                                        </div>
-                                                        <div className="col-md-4 mb-2">
-                                                            <div className="value">
-                                                                <span className="fs-8">Model</span>
-                                                                <label className="d-block fw-bold">{this.state.data.car1Data.model}</label>
-                                                                <span className="fs-8">Varient</span>
-                                                            </div>  
-                                                        </div>
-                                                        <div className="col-md-4 mb-2">
-                                                            <div className="value">
-                                                                <span className="fs-8">Year</span>
-                                                                <label className="d-block fw-bold">{this.state.data.car1Data.year}</label>
-                                                            </div> 
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                {this.state.threeCarsComparison ?
+                                                [1,2,3].map(e => 
+                                                    <div className="col-4 compare-item-left">
+                                                        <CompareResultCar data={{
+                                                            "rank":e, 
+                                                            "image":this.state.data.car1Data.carImage, 
+                                                            "make":this.state.data.car1Data.make, 
+                                                            "model":this.state.data.car1Data.model, 
+                                                            "year":this.state.data.car1Data.year,
+                                                            "winner":(e ==1? true:false)
+                                                        }}/></div>)
+                                                :<><div className="col-6 compare-item-left">
+                                                <CompareResultCar data={{
+                                                    "rank":"1", 
+                                                    "image":this.state.data.car1Data.carImage, 
+                                                    "make":this.state.data.car1Data.make, 
+                                                    "model":this.state.data.car1Data.model, 
+                                                    "year":this.state.data.car1Data.year,
+                                                    "winner":true
+                                                }}/></div>
                                                 <div className="col-6 compare-item-right">
-                                                    <div className="rank-wrapper mb-3 text-end">
-                                                        <div className="rank d-inline-block text-center">
-                                                            <span className="d-block number fw-bold fs-5">2</span>
-                                                            <span className="d-block fs-8 fw-bold">RANK</span>
-                                                        </div>
-                                                    </div>
-
-                                                    <div className="item-img mb-3">
-                                                        <img src={this.state.data.car2Data.carImage} />
-                                                    </div>
-                                                    <div className="value mb-4">
-                                                        <label className="d-block fw-bold">Kia Sonet</label>
-                                                        <span className="fs-8">Rs 7.59lakh</span>
-                                                    </div>
-                                                    <div className="row value-details">
-                                                        <div className="col-md-4 mb-2">
-                                                            <div className="value">
-                                                                <span className="fs-8">Make</span>
-                                                                <label className="d-block fw-bold">{this.state.data.car2Data.make}</label>
-                                                            </div>  
-                                                        </div>
-                                                        <div className="col-md-4 mb-2">
-                                                            <div className="value">
-                                                                <span className="fs-8">Model</span>
-                                                                <label className="d-block fw-bold">{this.state.data.car2Data.model}</label>
-                                                                <span className="fs-8">Varient</span>
-                                                            </div>  
-                                                        </div>
-                                                        <div className="col-md-4 mb-2">
-                                                            <div className="value">
-                                                                <span className="fs-8">Year</span>
-                                                                <label className="d-block fw-bold">{this.state.data.car2Data.year}</label>
-                                                            </div> 
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                        <CompareResultCar data={{
+                                                            "rank":"2", 
+                                                            "image":this.state.data.car1Data.carImage, 
+                                                            "make":this.state.data.car1Data.make, 
+                                                            "model":this.state.data.car1Data.model, 
+                                                            "year":this.state.data.car1Data.year,
+                                                            "winner":false
+                                                        }}/></div></>}
+                                                
+                                                
+                                                
                                             
                                             </div>
 
@@ -447,24 +359,42 @@ export default class Compared extends React.Component {
                         <div className="section-content">
                             <div className="d-none d-sm-block">
                                 <div className="row">
-                                    {this.state.data.popularComparisons&&this.state.data.popularComparisons.map((item, index) => {
-                                        return index - this.state.compareDActiveNumber < 4 && index -this.state.compareDActiveNumber >= 0?
-                                        <div className="col-sm-3">
-                                            {/* <CompareItem compareData={item} key={index}/> */}
-                                        </div>
-                                        :
-                                        ''
-                                    })}
+                                {this.state.data.popularComparisons && this.state.data.popularComparisons.map((item, index) => 
+                                    <div className="col-sm-3">
+                                        <CompareItem compareData={item} key={index}/>
+                                    </div>
+                                )}
                                 </div>
                                 
                             </div>
-                            <div className="d-sm-none">
-                                {/* <CompareItem compareData={this.state.data.popularComparisons[this.state.compareMActiveNumber]}/> */}
-                            </div>
+                            {/* <div className="d-sm-none">
+                                <CompareItem compareData={this.state.data.popularComparisons[this.state.compareMActiveNumber]}/>
+                            </div> */}
                         </div>
                     </div>
                 </div>
             </div>
         );
+    }
+}
+
+
+export async function getStaticProps() {
+    
+    const comparisonsResults = await fetch(process.env.REACT_APP_API_HOST+"/api/v2/car/popular-comparisons");
+    const comparisons = await comparisonsResults.json();
+    const comparisonResponse = await fetch(process.env.REACT_APP_API_HOST+"/api/v2/car/comparison-result?id=546");
+    const comparisonsData = await comparisonResponse.json();
+    return {
+      props: {"popularComparisons":comparisons, "comparisonFeatures":comparisonsData.criteria, "title":comparisonsData.title,
+                "headPara":comparisonsData.headPara}, // will be passed to the page component as props
+    }
+}
+
+export async function getStaticPaths () {
+
+    return {
+        paths: [], //indicates that no page needs be created at build time
+        fallback: 'blocking' //indicates the type of fallback
     }
 }
