@@ -4,14 +4,15 @@ import FeaturesItemCompared from '../../../../components/comparision_features/fe
 import CardDescription from '../../../../components/basic/card_description'
 import CompareItem from '../../../../components/compares/compare-item'
 import CompareResultCar from '../../../../components/compares/compare-car'
+import CompareCarPopularity from '../../../../components/compares/car-compare-popularity'
 import ComparedData from '../../../../components/compares/compared_data'
-import ProgressBar from '../../../../components/basic/progressbar'
+
 
 export default class CarComparisonResult extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            threeCarsComparison: false,
+            threeCarsComparison: true,
             popularComparisonsPage:1,
             data: {
                 "desc1": {
@@ -82,7 +83,7 @@ export default class CarComparisonResult extends React.Component {
                 "popularComparisons":props.popularComparisons,
                 "comparedData": [
                     {
-                        "categoryName": "Engine", "image": "image/motor.png",
+                        "categoryName": "Engine", "image": "/image/motor.png",
                         "details": [
                             { "name": "Engine Size (CC)", "car1": "1197cc", "car2": "1197cc","car3": "1197cc" },
                             { "name": "Engine Bore", "car1": "0", "car2": "0", "car3": "0" },
@@ -94,19 +95,19 @@ export default class CarComparisonResult extends React.Component {
                         ]
                     },
                     {
-                        "categoryName": "Dimension & wight", "image": "image/ruler.png",
+                        "categoryName": "Dimension & wight", "image": "/image/ruler.png",
                         "details": [
                             { "name": "Length", "car1": "3995mm", "car2": "3995mm", "car3": "3995mm" },
                         ]
                     },
                     {
-                        "categoryName": "Engine", "image": "image/manual-transmission.png",
+                        "categoryName": "Engine", "image": "/image/manual-transmission.png",
                         "details": [
                             { "name": "Engine Size (CC)", "car1": "1197cc", "car2": "1197cc", "car3": "1197cc" },
                         ]
                     },
                     {
-                        "categoryName": "Engine", "image": "image/tire.png",
+                        "categoryName": "Engine", "image": "/image/tire.png",
                         "details": [
                             { "name": "Engine Size (CC)", "car1": "1197cc", "car2": "1197cc", "car3": "1197cc" },
                         ]
@@ -126,15 +127,18 @@ export default class CarComparisonResult extends React.Component {
         } 
         const res = await fetch(process.env.NEXT_PUBLIC_REACT_APP_API_HOST+"/api/v2/car/popular-comparisons?page="+this.state.popularComparisonsPage);
         const comps = await res.json();
-        this.setState({ "data": {"popularComparisons":comps} });
+        var newState = this.state;
+        newState.data.popularComparisons = comps;
+        await this.setState(newState);
     }
 
     async nextCompare() {
         await this.setState({popularComparisonsPage: this.state.popularComparisonsPage + 1})
         const res = await fetch(process.env.NEXT_PUBLIC_REACT_APP_API_HOST+"/api/v2/car/popular-comparisons?page="+this.state.popularComparisonsPage);
         const comps = await res.json();
-        
-        this.setState({ "data": {"popularComparisons":comps} });
+        var newState = this.state;
+        newState.data.popularComparisons = comps;
+        await this.setState(newState);
     }
 
     componentDidMount() {
@@ -257,50 +261,12 @@ export default class CarComparisonResult extends React.Component {
                                             
                                             </div>
 
-                                            <div className="vs-image compared">
-                                                <img src="image/vs.png" />
-                                            </div>
+                                            
 
-                                            <div className="popularity-wrapper mt-3">
-                                                <div className="title mb-3">
-                                                    <img src="image/popularity.png" />
-                                                    <span className="fw-bold fs-6 text-uppercase">popularity</span>
-                                                </div>
-
-                                                <div className="row detail">
-                                                    <div className="col-6 left">
-                                                        <div className="row">
-                                                            <div className="col-md-2 col-3 fw-bold text-end number">
-                                                                68%
-                                                            </div>
-                                                            <div className="col-md-10 col-9 mt-1">
-                                                                <ProgressBar percent="68"/>
-                                                                <p className="d-none d-md-block text-end fs-8">
-                                                                    Integer eget sem non augue euismod rhoncus eu eu sem. In volutpat 
-                                                                    suscipit est ac malesuada.
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-6 right">
-                                                        <div className="row">
-                                                            <div className="col-md-10 col-9 mt-1">
-                                                                <ProgressBar percent="60"/>
-                                                                <p className="d-none d-md-block text-start fs-8">
-                                                                    Integer eget sem non augue euismod rhoncus eu eu sem. In volutpat 
-                                                                    suscipit est ac malesuada.
-                                                                </p>
-                                                            </div>
-                                                            <div className="col-md-2 col-3 fw-bold text-start number">
-                                                                68%
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            <CompareCarPopularity data={{"threecars":this.state.threeCarsComparison, "popularity1":68, "popularity2":78,"popularity3":65}}/>
 
                                             {this.state.data.comparedData&&this.state.data.comparedData.map((item, index) =>
-                                                <ComparedData data={item} key={index}/>
+                                                <ComparedData data={item} threecars={this.state.threeCarsComparison} key={index}/>
                                             )}
                                             
                                         </div>
@@ -348,10 +314,10 @@ export default class CarComparisonResult extends React.Component {
                             <h4>Popular comparison</h4>
                             <div className="prev-next">
                                 <div className="pn-item" onClick={this.prewCompare}>
-                                    <img src="image/prev.png" />
+                                    <img src="/image/prev.png" />
                                 </div>
                                 <div className="pn-item">
-                                    <img src="image/next.png"  onClick={this.nextCompare}/>
+                                    <img src="/image/next.png"  onClick={this.nextCompare}/>
                                 </div>
                             </div>
                         </div>
@@ -367,9 +333,11 @@ export default class CarComparisonResult extends React.Component {
                                 </div>
                                 
                             </div>
-                            {/* <div className="d-sm-none">
-                                <CompareItem compareData={this.state.data.popularComparisons[this.state.compareMActiveNumber]}/>
-                            </div> */}
+                             <div className="d-sm-none">
+                             {this.state.data.popularComparisons && this.state.data.popularComparisons.map((item, index) => 
+                                        <CompareItem compareData={item} key={index}/>
+                                )}
+                            </div> 
                         </div>
                     </div>
                 </div>

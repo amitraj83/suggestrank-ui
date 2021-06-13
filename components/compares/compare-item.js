@@ -31,7 +31,7 @@ export default class CompareItem extends Component {
                 </div>
 
                 <div className="vs-image">
-                    <img src="image/vs-orange.png" />
+                    <img src="/image/vs-orange.png" />
                 </div>
             </div>
             </Link>

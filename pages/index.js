@@ -108,9 +108,12 @@ export default class Home extends React.Component {
                             </div>
                             
                         </div>
-                        {/* <div className="d-sm-none">
-                            <CompareItem compareData={this.state.data.popularComparisons[this.state.compareMActiveNumber]}/>
-                        </div> */}
+                        <div className="d-sm-none">
+                        {this.state.data.popularComparisons && this.state.data.popularComparisons.map((item, index) => 
+                                        <CompareItem compareData={item} key={index}/>
+                                    
+                                )}
+                        </div> 
                     </div>
                 </div>
             </div>
