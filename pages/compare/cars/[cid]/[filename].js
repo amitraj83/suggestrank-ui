@@ -12,107 +12,22 @@ export default class CarComparisonResult extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            threeCarsComparison: true,
+            threeCarsComparison: props.threeCarsComparison,
             popularComparisonsPage:1,
             data: {
                 "desc1": {
                     "title": props.title, 
                     "content": props.headPara
                 },
-                "desc2": {
-                    "title": "Kia Sonet vs Tata Nexon - Model Year", 
-                    "content": `Suspendisse scelerisque quis diam ut commodo. Maecenas efficitur mauris feugiat velit cursus ullamcorper. Proin tempor volutpat magna in pretium. Ut 
-                                congue aliquam risus, eget auctor neque auctor et. Nam bibendum mi quis aliquam vehicula.Nulla facilisi. Suspendisse fringilla ipsum faucibus libero auctor 
-                                mollis. Nam rhoncus odio metus, non tristique enim finibus quis. Aenean semper tempor urna quis feugiat. Suspendisse tortor tellus, laoreet ut urna ac, 
-                                tempus dapibus nisi. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.`
-                },
-                "desc3": {
-                    "title": "Kia Sonet vs Tata Nexon - Engine size (cc)", 
-                    "content": `Suspendisse scelerisque quis diam ut commodo. Maecenas efficitur mauris feugiat velit cursus ullamcorper. Proin tempor volutpat magna in pretium. Ut 
-                                congue aliquam risus, eget auctor neque auctor et. Nam bibendum mi quis aliquam vehicula.Nulla facilisi. Suspendisse fringilla ipsum faucibus libero auctor 
-                                mollis. Nam rhoncus odio metus, non tristique enim finibus quis. Aenean semper tempor urna quis feugiat. Suspendisse tortor tellus, laoreet ut urna ac, 
-                                tempus dapibus nisi. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.`
-                },
-                "desc4": {
-                    "title": "Kia Sonet vs Tata Nexon - Engine Cylinder", 
-                    "content": `Suspendisse scelerisque quis diam ut commodo. Maecenas efficitur mauris feugiat velit cursus ullamcorper. Proin tempor volutpat magna in pretium. Ut 
-                                congue aliquam risus, eget auctor neque auctor et. Nam bibendum mi quis aliquam vehicula.Nulla facilisi. Suspendisse fringilla ipsum faucibus libero auctor 
-                                mollis. Nam rhoncus odio metus, non tristique enim finibus quis. Aenean semper tempor urna quis feugiat. Suspendisse tortor tellus, laoreet ut urna ac, 
-                                tempus dapibus nisi. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.`
-                },
-                "desc5": {
-                    "title": "Kia Sonet vs Tata Nexon - Engine power (rpm)", 
-                    "content": `Suspendisse scelerisque quis diam ut commodo. Maecenas efficitur mauris feugiat velit cursus ullamcorper. Proin tempor volutpat magna in pretium. Ut 
-                                congue aliquam risus, eget auctor neque auctor et. Nam bibendum mi quis aliquam vehicula.Nulla facilisi. Suspendisse fringilla ipsum faucibus libero auctor 
-                                mollis. Nam rhoncus odio metus, non tristique enim finibus quis. Aenean semper tempor urna quis feugiat. Suspendisse tortor tellus, laoreet ut urna ac, 
-                                tempus dapibus nisi. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.`
-                },
-                "desc6": {
-                    "title": "Kia Sonet vs Tata Nexon - Engine Torque (rpm)", 
-                    "content": `Suspendisse scelerisque quis diam ut commodo. Maecenas efficitur mauris feugiat velit cursus ullamcorper. Proin tempor volutpat magna in pretium. Ut 
-                                congue aliquam risus, eget auctor neque auctor et. Nam bibendum mi quis aliquam vehicula.Nulla facilisi. Suspendisse fringilla ipsum faucibus libero auctor 
-                                mollis. Nam rhoncus odio metus, non tristique enim finibus quis. Aenean semper tempor urna quis feugiat. Suspendisse tortor tellus, laoreet ut urna ac, 
-                                tempus dapibus nisi. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.`
-                },
-                "desc7": {
-                    "title": "Kia Sonet vs Tata Nexon - Seats", 
-                    "content": `Suspendisse scelerisque quis diam ut commodo. Maecenas efficitur mauris feugiat velit cursus ullamcorper. Proin tempor volutpat magna in pretium. Ut 
-                                congue aliquam risus, eget auctor neque auctor et. Nam bibendum mi quis aliquam vehicula.Nulla facilisi. Suspendisse fringilla ipsum faucibus libero auctor 
-                                mollis. Nam rhoncus odio metus, non tristique enim finibus quis. Aenean semper tempor urna quis feugiat. Suspendisse tortor tellus, laoreet ut urna ac, 
-                                tempus dapibus nisi. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.`
-                },
-                "desc8": {
-                    "title": "Verdicts", 
-                    "content": `Suspendisse scelerisque quis diam ut commodo. Maecenas efficitur mauris feugiat velit cursus ullamcorper. Proin tempor volutpat magna in pretium. Ut 
-                                congue aliquam risus, eget auctor neque auctor et. Nam bibendum mi quis aliquam vehicula.Nulla facilisi. Suspendisse fringilla ipsum faucibus libero auctor 
-                                mollis. Nam rhoncus odio metus, non tristique enim finibus quis. Aenean semper tempor urna quis feugiat. Suspendisse tortor tellus, laoreet ut urna ac, 
-                                tempus dapibus nisi. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.`
-                },
+                "descriptions":props.descriptions,
+
+                "Verdict": props.verdict,
 
                 "comparisonFeatures":props.comparisonFeatures
                 ,
-                "car1Data":{
-                    "carImage":"https://suggestrank.com/images/8795e4a4.jpg", "name":"Honda CRV", "make":"Honda", "model":"CRV", "year":"2020"
-                },
-                "car2Data":{
-                    "carImage":"https://suggestrank.com/images/honda-jazz-2017-2019-1519048567.5.jpg", "name":"Honda Jazz", "make":"Honda", "model":"Jazz", "year":"2019"
-                },
-                "car3Data":{
-                    "carImage":"https://suggestrank.com/images/honda-jazz-2017-2019-1519048567.5.jpg", "name":"Honda Jazz", "make":"Honda", "model":"Jazz", "year":"2019"
-                },
+                "carsData":props.carsData,
                 "popularComparisons":props.popularComparisons,
-                "comparedData": [
-                    {
-                        "categoryName": "Engine", "image": "/image/motor.png",
-                        "details": [
-                            { "name": "Engine Size (CC)", "car1": "1197cc", "car2": "1197cc","car3": "1197cc" },
-                            { "name": "Engine Bore", "car1": "0", "car2": "0", "car3": "0" },
-                            { "name": "Engine Compression", "car1": "9.6", "car2": "9.6" , "car3": "9.6" },
-                            { "name": "Engine Cylinder", "car1": "4", "car2": "4", "car3": "4" },
-                            { "name": "Engine Fuel", "car1": "Premium Unleaded", "car2": "Premium Unleaded", "car3": "Premium Unleaded" },
-                            { "name": "Engine Position", "car1": "Front", "car2": "Front", "car3": "Front" },
-                            { "name": "Engine Power", "car1": "565", "car2": "565", "car3": "565" },
-                        ]
-                    },
-                    {
-                        "categoryName": "Dimension & wight", "image": "/image/ruler.png",
-                        "details": [
-                            { "name": "Length", "car1": "3995mm", "car2": "3995mm", "car3": "3995mm" },
-                        ]
-                    },
-                    {
-                        "categoryName": "Engine", "image": "/image/manual-transmission.png",
-                        "details": [
-                            { "name": "Engine Size (CC)", "car1": "1197cc", "car2": "1197cc", "car3": "1197cc" },
-                        ]
-                    },
-                    {
-                        "categoryName": "Engine", "image": "/image/tire.png",
-                        "details": [
-                            { "name": "Engine Size (CC)", "car1": "1197cc", "car2": "1197cc", "car3": "1197cc" },
-                        ]
-                    }
-                ]
+                "specs": props.categorizedSpecs
             },
 
         };
@@ -227,34 +142,30 @@ export default class CarComparisonResult extends React.Component {
                                         <div className="compare-car mb-4 bg-white p-3 pt-4 mt-4">
                                             <div className="row">
                                                 {this.state.threeCarsComparison ?
-                                                [1,2,3].map(e => 
+                                                this.state.data.carsData.map(c => 
                                                     <div className="col-4 compare-item-left">
                                                         <CompareResultCar data={{
-                                                            "rank":e, 
-                                                            "image":this.state.data.car1Data.carImage, 
-                                                            "make":this.state.data.car1Data.make, 
-                                                            "model":this.state.data.car1Data.model, 
-                                                            "year":this.state.data.car1Data.year,
-                                                            "winner":(e ==1? true:false)
+                                                            "rank":c.rank, 
+                                                            "image":c.image, 
+                                                            "make":c.make, 
+                                                            "model":c.model, 
+                                                            "year":c.year,
+                                                            "variant":c.variant,
+                                                            "winner":(c.rank ==1? true:false)
                                                         }}/></div>)
-                                                :<><div className="col-6 compare-item-left">
-                                                <CompareResultCar data={{
-                                                    "rank":"1", 
-                                                    "image":this.state.data.car1Data.carImage, 
-                                                    "make":this.state.data.car1Data.make, 
-                                                    "model":this.state.data.car1Data.model, 
-                                                    "year":this.state.data.car1Data.year,
-                                                    "winner":true
-                                                }}/></div>
-                                                <div className="col-6 compare-item-right">
+                                                :
+                                                this.state.data.carsData.map(c => 
+                                                    <div className="col-6 compare-item-left">
                                                         <CompareResultCar data={{
-                                                            "rank":"2", 
-                                                            "image":this.state.data.car1Data.carImage, 
-                                                            "make":this.state.data.car1Data.make, 
-                                                            "model":this.state.data.car1Data.model, 
-                                                            "year":this.state.data.car1Data.year,
-                                                            "winner":false
-                                                        }}/></div></>}
+                                                            "rank":c.rank, 
+                                                            "image":c.image, 
+                                                            "make":c.make, 
+                                                            "model":c.model, 
+                                                            "year":c.year,
+                                                            "variant":c.variant,
+                                                            "winner":(c.rank ==1? true:false)
+                                                        }}/></div>)
+                                                }
                                                 
                                                 
                                                 
@@ -263,41 +174,23 @@ export default class CarComparisonResult extends React.Component {
 
                                             
 
-                                            <CompareCarPopularity data={{"threecars":this.state.threeCarsComparison, "popularity1":68, "popularity2":78,"popularity3":65}}/>
+                                            <CompareCarPopularity data={{"threecars":this.state.threeCarsComparison, "carsData":this.state.data.carsData}}/>
 
-                                            {this.state.data.comparedData&&this.state.data.comparedData.map((item, index) =>
+                                            {this.state.data.specs&&this.state.data.specs.map((item, index) =>
                                                 <ComparedData data={item} threecars={this.state.threeCarsComparison} key={index}/>
                                             )}
                                             
                                         </div>
                                     
                                         <div className="row">
+                                            {this.state.data.descriptions.map(d => 
                                             <div className="col-md-6 mt-4">
-                                                <CardDescription title={this.state.data.desc2.title} content={this.state.data.desc2.content}/>
+                                                <CardDescription title={d.title} content={d.content}/>
                                             </div>
-
-                                            <div className="col-md-6 mt-4">
-                                                <CardDescription title={this.state.data.desc3.title} content={this.state.data.desc3.content}/>
-                                            </div>
-
-                                            <div className="col-md-6 mt-4">
-                                                <CardDescription title={this.state.data.desc4.title} content={this.state.data.desc4.content}/>
-                                            </div>
-
-                                            <div className="col-md-6 mt-4">
-                                                <CardDescription title={this.state.data.desc5.title} content={this.state.data.desc5.content}/>
-                                            </div>
-
-                                            <div className="col-md-6 mt-4">
-                                                <CardDescription title={this.state.data.desc6.title} content={this.state.data.desc6.content}/>
-                                            </div>
-
-                                            <div className="col-md-6 mt-4">
-                                                <CardDescription title={this.state.data.desc7.title} content={this.state.data.desc7.content}/>
-                                            </div>
-
+                                            )}
+                                            
                                             <div className="col-md-12 mt-4">
-                                                <CardDescription title={this.state.data.desc8.title} content={this.state.data.desc8.content}/>
+                                                <CardDescription title={"Verdict"} content={this.state.data.Verdict}/>
                                             </div>
                                         </div>
                                     </div>
@@ -355,7 +248,9 @@ export async function getStaticProps() {
     const comparisonsData = await comparisonResponse.json();
     return {
       props: {"popularComparisons":comparisons, "comparisonFeatures":comparisonsData.criteria, "title":comparisonsData.title,
-                "headPara":comparisonsData.headPara}, // will be passed to the page component as props
+                "headPara":comparisonsData.headPara, "threeCarsComparison":comparisonsData.threeCarsComparison,
+            "carsData":comparisonsData.carsData, "categorizedSpecs":comparisonsData.categorizedSpecs,
+            "descriptions":comparisonsData.descriptions, "verdict":comparisonsData.verdict}, // will be passed to the page component as props
     }
 }
 

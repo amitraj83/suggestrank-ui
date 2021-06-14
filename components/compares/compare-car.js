@@ -19,8 +19,8 @@ render() {
         
     </div>
     <div className="value mb-4">
-        <label className="d-block fw-bold">Kia Sonet</label>
-        <span className="fs-8">Rs 7.59lakh</span>
+        <label className="d-block fw-bold">{this.props.data.make+" "+this.props.data.model}</label>
+        <span className="fs-8">{this.props.data.variant+" "+this.props.data.year}</span>
     </div>
     
 </div>)

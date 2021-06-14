@@ -24,8 +24,8 @@ render() {
                     <div className="row">
                         
                         <div className="col-md-12 col-12 mt-1">
-                            <ProgressBar percent={this.props.data.popularity1}/>
-                            <div className="fw-bold number">{this.props.data.popularity1+" %"}</div>
+                            <ProgressBar percent={this.props.data.carsData[0].popularity}/>
+                            <div className="fw-bold number">{this.props.data.carsData[0].popularity+" %"}</div>
                             {/* <p className="d-none d-md-block text-end fs-8">
                                 Integer eget sem non augue euismod rhoncus eu eu sem. In volutpat 
                                 suscipit est ac malesuada.
@@ -36,8 +36,8 @@ render() {
                 <div className="col-4 ">
                     <div className="row">
                         <div className="col-md-12 col-12 mt-1">
-                            <ProgressBar percent={this.props.data.popularity2}/>
-                            <div className="fw-bold number">{this.props.data.popularity2+" %"}</div>
+                            <ProgressBar percent={this.props.data.carsData[1].popularity}/>
+                            <div className="fw-bold number">{this.props.data.carsData[1].popularity+" %"}</div>
                             {/* <p className="d-none d-md-block text-start fs-8">
                                 Integer eget sem non augue euismod rhoncus eu eu sem. In volutpat 
                                 suscipit est ac malesuada.
@@ -49,8 +49,8 @@ render() {
                 <div className="col-4 left">
                     <div className="row">
                         <div className="col-md-12 col-12 mt-1">
-                            <ProgressBar percent={this.props.data.popularity3}/>
-                            <div className="fw-bold number">{this.props.data.popularity3+" %"}</div>
+                            <ProgressBar percent={this.props.data.carsData[2].popularity}/>
+                            <div className="fw-bold number">{this.props.data.carsData[2].popularity+" %"}</div>
                             {/* <p className="d-none d-md-block text-start fs-8">
                                 Integer eget sem non augue euismod rhoncus eu eu sem. In volutpat 
                                 suscipit est ac malesuada.
@@ -66,8 +66,8 @@ render() {
                     <div className="row">
                         
                         <div className="col-md-12 col-12 mt-1">
-                            <ProgressBar percent={this.props.data.popularity1}/>
-                            <div className="fw-bold number">{this.props.data.popularity1+" %"}</div>
+                            <ProgressBar percent={this.props.data.carsData[0].popularity}/>
+                            <div className="fw-bold number">{this.props.data.carsData[0].popularity+" %"}</div>
                             {/* <p className="d-none d-md-block text-end fs-8">
                                 Integer eget sem non augue euismod rhoncus eu eu sem. In volutpat 
                                 suscipit est ac malesuada.
@@ -78,8 +78,8 @@ render() {
                 <div className="col-6 right">
                     <div className="row">
                         <div className="col-md-12 col-12 mt-1">
-                            <ProgressBar percent={this.props.data.popularity2}/>
-                            <div className="fw-bold number">{this.props.data.popularity2+" %"}</div>
+                            <ProgressBar percent={this.props.data.carsData[1].popularity}/>
+                            <div className="fw-bold number">{this.props.data.carsData[1].popularity+" %"}</div>
                             {/* <p className="d-none d-md-block text-start fs-8">
                                 Integer eget sem non augue euismod rhoncus eu eu sem. In volutpat 
                                 suscipit est ac malesuada.
