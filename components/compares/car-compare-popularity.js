@@ -46,7 +46,7 @@ render() {
                         
                     </div>
                 </div>
-                <div className="col-4 left">
+                <div className="col-4 right_alternate">
                     <div className="row">
                         <div className="col-md-12 col-12 mt-1">
                             <ProgressBar percent={this.props.data.carsData[2].popularity}/>

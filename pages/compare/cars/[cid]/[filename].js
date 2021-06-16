@@ -1,4 +1,5 @@
-import React from 'react'
+import React, {useState} from 'react'
+
 import FeaturesItem from '../../../../components/comparision_features/features_item'
 import FeaturesItemCompared from '../../../../components/comparision_features/features_item_compared'
 import CardDescription from '../../../../components/basic/card_description'
@@ -8,6 +9,7 @@ import CompareCarPopularity from '../../../../components/compares/car-compare-po
 import ComparedData from '../../../../components/compares/compared_data'
 
 
+
 export default class CarComparisonResult extends React.Component {
     constructor(props) {
         super(props);
@@ -15,16 +17,10 @@ export default class CarComparisonResult extends React.Component {
             threeCarsComparison: props.threeCarsComparison,
             popularComparisonsPage:1,
             data: {
-                "desc1": {
-                    "title": props.title, 
-                    "content": props.headPara
-                },
+                "headPara": {"title": props.title, "content": props.headPara},
                 "descriptions":props.descriptions,
-
                 "Verdict": props.verdict,
-
-                "comparisonFeatures":props.comparisonFeatures
-                ,
+                "comparisonFeatures":props.comparisonFeatures,
                 "carsData":props.carsData,
                 "popularComparisons":props.popularComparisons,
                 "specs": props.categorizedSpecs
@@ -99,7 +95,7 @@ export default class CarComparisonResult extends React.Component {
                                 <div className="col-lg-9">
                                     <div className="right-panel pl-3">
                                         <div className="mt-5">
-                                            <CardDescription title={this.state.data.desc1.title} content={this.state.data.desc1.content}/>
+                                            <CardDescription title={this.state.data.headPara.title} content={this.state.data.headPara.content}/>
                                         </div>
                                         <div className="features d-lg-none mt-4 mb-4 p-3 bg-white">
                                             <div className="clearfix" data-bs-toggle="collapse" href="#features-collapse" role="button" aria-expanded="false" aria-controls="collapseExample">
@@ -240,7 +236,7 @@ export default class CarComparisonResult extends React.Component {
 }
 
 
-export async function getStaticProps() {
+export async function getStaticProps({query}) {
     
     const comparisonsResults = await fetch(process.env.REACT_APP_API_HOST+"/api/v2/car/popular-comparisons");
     const comparisons = await comparisonsResults.json();
