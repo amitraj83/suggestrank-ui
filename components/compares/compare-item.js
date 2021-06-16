@@ -7,7 +7,7 @@ export default class CompareItem extends Component {
     }
     render() {
         return (
-            <Link href={this.props.compareData.url} >
+            <Link href={this.props.compareData.url} prefetch>
             <div className="compare-item" style={{cursor:"pointer"}}>
                 <div className="row">
                     <div className="col-6 compare-item-left">
