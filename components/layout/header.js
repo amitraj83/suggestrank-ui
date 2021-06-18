@@ -7,7 +7,7 @@ function Header (props) {
     const onCompareClick =  (e) => {
         e.preventDefault();
         
-        router.push("/compare");
+        router.push("/compare/cars");
     }
     return (
         <div className="header">

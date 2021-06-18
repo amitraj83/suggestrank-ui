@@ -11,12 +11,12 @@ export default class FeaturesItem extends Component {
                 <div className="row">
                     <div className="col-9 pe-0">
                         <input className="form-check-input" type="checkbox" value="" id="defaultCheck1" />
-                        <label className="fw-bold fs-7 ms-2">{this.props.item}</label>
+                        <label className="fs-7 ms-2">{this.props.item.displayName}</label>
                     </div>
                     <div className="col-3 text-end ps-0">
-                        {/* <div className="form-check form-switch position-relative">
+                         {/* <div className="form-check form-switch position-relative">
                             <input className="form-check-input" type="checkbox" />
-                        </div> */}
+                        </div>  */}
 
                         <ToggleSwitch Name={this.props.item}/>
                     </div>

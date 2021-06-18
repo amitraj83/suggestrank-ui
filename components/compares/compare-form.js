@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 export default class CompareForm extends Component {
+    
     constructor(props) {
         super(props);
         this.state = {
@@ -13,7 +14,8 @@ export default class CompareForm extends Component {
             selectedMake1:"",
             selectedModel1:"",
             selectedMake2:"",
-            selectedModel2:""
+            selectedModel2:"",
+            
         }
 
         this.changeCar1Make = this.changeCar1Make.bind(this);
@@ -23,6 +25,7 @@ export default class CompareForm extends Component {
         this.changeCar2Model = this.changeCar2Model.bind(this);
 
     }
+    
 
     async changeCar1Model(event) {
         this.setState({
@@ -88,6 +91,7 @@ export default class CompareForm extends Component {
         
     }
 
+  
     render() {
         return (
             <div>
@@ -95,7 +99,7 @@ export default class CompareForm extends Component {
                     <h4 className="fw-bold mb-0">Select any two cars to compare</h4>
                     <span className="">Our car comparison tool helps you with clear difference between your chosen cars.</span>
                     <div className="btn-wrapper d-lg-inline-block d-none">
-                        <button className="btn-compare reverse">Compare</button>
+                        <button onClick={this.props.compare} className="btn-compare reverse">Compare</button>
                     </div>
                 </div>
 
@@ -119,7 +123,7 @@ export default class CompareForm extends Component {
                                 </select>
                             </div>
                             <div className="col-12 mt-3">
-                                <select className="form-select form-select-sm">
+                                <select onChange={this.props.action1} className="form-select form-select-sm">
                                     <option>Variant</option>
                                     {this.state.variants1&&this.state.variants1.map(item =>
                                         <option value={item.value} key={item.value}>{item.label}</option>
@@ -129,7 +133,7 @@ export default class CompareForm extends Component {
                         </div>
                     </div>
                     <div className="col-md-2 img-vs-wrapper mt-3">
-                        <img className="" src="image/vs.png"/>
+                        <img className="" src="/image/vs.png"/>
                     </div>
                     <div className="col-md-5">
                         <div className="row">
@@ -150,7 +154,7 @@ export default class CompareForm extends Component {
                                 </select>
                             </div>
                             <div className="col-12 mt-3">
-                                <select className="form-select form-select-sm">
+                                <select onChange={this.props.action2} className="form-select form-select-sm">
                                     <option>Variant</option>
                                     {this.state.variants2&&this.state.variants2.map(item =>
                                         <option value={item.value} key={item.value}>{item.label}</option>
