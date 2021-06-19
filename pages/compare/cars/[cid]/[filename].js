@@ -234,12 +234,13 @@ function CarComparisonResult (props) {
 
 export async function getServerSideProps ({query}) {
     
-    console.log("Query 2: "+JSON.stringify(query));
     // console.log("Page query: "+JSON.stringify(query));
     const comparisonsResults = await fetch(process.env.REACT_APP_API_HOST+"/api/v2/car/popular-comparisons");
     const comparisons = await comparisonsResults.json();
     const comparisonResponse = await fetch(process.env.REACT_APP_API_HOST+"/api/v2/car/comparison-result?id="+query.cid);
     const comparisonsData = await comparisonResponse.json();
+    console.log("Query 2: "+JSON.stringify(comparisonsData));
+    
     return {
       props: {"popularComparisons":comparisons, "comparisonFeatures":comparisonsData.criteria, "title":comparisonsData.title,
                 "headPara":comparisonsData.headPara, "threeCarsComparison":comparisonsData.threeCarsComparison,
