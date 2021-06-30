@@ -8,7 +8,7 @@ export default class FeaturesItemCompared extends Component {
         return (
             <div className={`features-item-compared ${this.props.data.higher ? "higher" : ""}`}>
                 <span className="title fw-bold text-uppercase">{this.props.data.name}</span>
-
+                {console.log("Higher : "+this.props.data.higher)}
                 { this.props.data.higher
                     ?   <label className="text-uppercase fw-bold">
                             Higher is better
