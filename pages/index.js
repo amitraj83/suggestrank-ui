@@ -5,6 +5,7 @@ import ServiceItem from '../components/services/serice-item'
 import PopularArticle from '../components/articles/popular-article'
 import RecentArticle from '../components/articles/recent-article'
 const { DOMParser } = require('xmldom')
+import Head from "next/head";
 
 export default class Home extends React.Component {
 
@@ -55,6 +56,27 @@ export default class Home extends React.Component {
     }
     render() {
         return (
+        <>
+        <Head>
+        
+        <title>
+	        Compare and Rank Cars, Car Comparison and Ranking Tool | SuggestRank
+        </title>
+        <meta charset="utf-8" />
+        <meta property="twitter:description" content="Compare cars side-by-side and rank. See car specifications, equipment, review, sale price, interiors, review, horsepower, engine, Images and colours and rank."/>
+        <meta name="theme-color" content="#1a2e3c"/>
+        <meta property="og:type" content="website"/>
+        <meta property="og:site_name" content="SuggestRank"/>
+        <meta name="og:image" property="og:image" content="https://suggestrank.com/static/media/text6244.283151ca.png"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta name="title" content="SuggestRank - Car compare and rank tool"/>
+        <meta property="og:title" content="SuggestRank - Car compare and rank tool"/>
+        <meta property="og:url" content="https://suggestrank.com"/>
+        <meta name="description" content="Compare cars side-by-side and rank. See car specifications, equipment, review, sale price, interiors, review, horsepower, engine, Images and colours and rank."/>
+        <meta property="og:description" content="Compare cars side-by-side and rank. See car specifications, equipment, review, sale price, interiors, review, horsepower, engine, Images and colours and rank."/>
+        <meta  name="keywords"  content={"compare cars, compare cars side-by-side, Car comparison tool"}/>
+
+      </Head>
         <div className="page-home page-wrapper">
             <div className="banner">
                 <div className="container">
@@ -219,6 +241,7 @@ export default class Home extends React.Component {
                 </div>
             </div>
         </div>
+        </>
         )
     }
   

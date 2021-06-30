@@ -8,7 +8,7 @@ import CompareItem from '../../../../components/compares/compare-item'
 import CompareResultCar from '../../../../components/compares/compare-car'
 import CompareCarPopularity from '../../../../components/compares/car-compare-popularity'
 import ComparedData from '../../../../components/compares/compared_data'
-
+import Head from "next/head";
 
 
 function CarComparisonResult (props) {
@@ -57,6 +57,42 @@ function CarComparisonResult (props) {
     
     // let isMobile = this.state.isMobile ;
     return (
+        <>
+        <Head>
+        <title>{props.title} </title>
+        <meta charset="utf-8" />
+        <meta  name="theme-color" content="#1a2e3c"/>
+        <meta  name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta  name="title" content={props.title}  />
+        <meta  name="description" content={props.headPara}/>
+        <meta property="twitter:description" content={props.headPara}/>
+        <meta  property="og:title" content={props.title} />
+        <meta  property="og:description"  content={props.headPara}/>
+        <meta  property="og:image" content={"https://suggestrank.com"+props.pageImage}/>
+        <meta  property="og:url" content={"https://suggestrank.com"+props.url}/>
+        <meta property="og:image:secure_url" content="https://suggestrank.com/suggestrank.png"></meta>
+        <meta  property="og:type" content="article"/>
+        <meta  property="og:site_name" content="SuggestRank"/>
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:updated_time" content="2021-03-09T19:23:37+01:30"/>
+        <meta property="og:image:width" content="400"/>
+        <meta property="og:image:height" content="250"></meta>
+        <meta property="og:image:type" content="image/jpeg"></meta>
+        <meta name="twitter:title" content={props.title}/>
+        <meta name="twitter:description" content={props.headPara}/>
+        <meta name="twitter:image" content={"https://suggestrank.com"+props.pageImage}/>
+        <meta name="twitter:card" content="summary_large_image"/>
+        <meta name="twitter:site" content="@RankSuggest"/>
+        <meta name="twitter:image:alt" content={"https://suggestrank.com"+props.pageImage}></meta>
+        <meta property="fb:app_id" content="452302089227415" />
+        <link rel="canonical" href={"https://suggestrank.com"+props.url} />
+
+        <meta property="article:published_time" content="2021-04-02" />
+        <meta property="article:publisher" content="https://suggestrank.com"></meta>
+        <meta property="article:section" content="Car Comparison"></meta> 
+            
+            
+        </Head> 
         <div className="page-car">
             <div className="section pt-2 page-wrapper">
                 <div className="container">
@@ -227,6 +263,7 @@ function CarComparisonResult (props) {
                 </div>
             </div>
         </div>
+        </>
     );
     
 }
@@ -240,12 +277,19 @@ export async function getServerSideProps ({query}) {
     const comparisonResponse = await fetch(process.env.REACT_APP_API_HOST+"/api/v2/car/comparison-result?id="+query.cid);
     const comparisonsData = await comparisonResponse.json();
     console.log("Query 2: "+JSON.stringify(comparisonsData));
-    
+    var pageImage = "";
+    for(var i = 0; i < comparisonsData.carsData.length; i++) {
+        if (comparisonsData.carsData[i].rank === 1 ) {
+            pageImage = comparisonsData.carsData[i].image;
+        }
+    }
+
     return {
       props: {"popularComparisons":comparisons, "comparisonFeatures":comparisonsData.criteria, "title":comparisonsData.title,
                 "headPara":comparisonsData.headPara, "threeCarsComparison":comparisonsData.threeCarsComparison,
             "carsData":comparisonsData.carsData, "categorizedSpecs":comparisonsData.categorizedSpecs,
-            "descriptions":comparisonsData.descriptions, "verdict":comparisonsData.verdict}, // will be passed to the page component as props
+            "descriptions":comparisonsData.descriptions, "verdict":comparisonsData.verdict, "pageImage":pageImage,
+        "url":comparisonsData.url}, // will be passed to the page component as props
     }
 }
 
