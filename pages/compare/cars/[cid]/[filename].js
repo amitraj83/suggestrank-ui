@@ -9,9 +9,12 @@ import CompareResultCar from '../../../../components/compares/compare-car'
 import CompareCarPopularity from '../../../../components/compares/car-compare-popularity'
 import ComparedData from '../../../../components/compares/compared_data'
 import Head from "next/head";
+import ErrorPage from '../../../errorpage'
 
 
 function CarComparisonResult (props) {
+    
+
     const [threeCarsComparison, setThreeCarsComparison] = React.useState( props.threeCarsComparison);
     const [popularComparisonsPage, setPopularComparisonsPage] = React.useState(1);
     const [isMobile, setIsMobile] = React.useState(false);
@@ -50,17 +53,20 @@ function CarComparisonResult (props) {
         newData.popularComparisons = comps;
         await setData(newData);
     }
-
+    
     useEffect( () => {
         setIsMobile(window.innerWidth < 992 ? true : false);
-        
     }, [])
 
-    if (statusCode !== 200) {
-        
-    }
+    
     // let isMobile = this.state.isMobile ;
+    if (props.statusCode !== 200) {
+
+        return <ErrorPage/>
+        
+    } else
     return (
+        
         <>
         <Head>
         <title>{props.title} </title>
@@ -174,7 +180,8 @@ function CarComparisonResult (props) {
                                     <div className="compare-car mb-4 bg-white p-3 pt-4 mt-4">
                                         <div className="row">
                                             {threeCarsComparison ?
-                                            data.carsData.map(c => 
+                                            data !== undefined &&  data.carsData !== undefined
+                                                ? data.carsData.map(c => 
                                                 <div className="col-4 compare-item-left">
                                                     <CompareResultCar data={{
                                                         "rank":c.rank, 
@@ -185,8 +192,10 @@ function CarComparisonResult (props) {
                                                         "variant":c.variant,
                                                         "winner":(c.rank ==1? true:false)
                                                     }}/></div>)
+                                                : <></>
                                             :
-                                            data.carsData.map(c => 
+                                            data !== undefined &&  data.carsData !== undefined 
+                                                ? data.carsData.map(c => 
                                                 <div className="col-6 compare-item-left">
                                                     <CompareResultCar data={{
                                                         "rank":c.rank, 
@@ -197,6 +206,7 @@ function CarComparisonResult (props) {
                                                         "variant":c.variant,
                                                         "winner":(c.rank ==1? true:false)
                                                     }}/></div>)
+                                                : <></>
                                             }
                                             
                                             
@@ -215,11 +225,14 @@ function CarComparisonResult (props) {
                                     </div>
                                 
                                     <div className="row">
-                                        {data.descriptions.map(d => 
-                                        <div className="col-md-6 mt-4">
-                                            <CardDescription title={d.title} content={d.content}/>
-                                        </div>
-                                        )}
+                                        {data !== undefined && data.descriptions !== undefined 
+                                            ? data.descriptions.map(d => 
+                                            <div className="col-md-6 mt-4">
+                                                <CardDescription title={d.title} content={d.content}/>
+                                            </div>
+                                            )
+                                            : <></>
+                                        }
                                         
                                         <div className="col-md-12 mt-4">
                                             <CardDescription title={"Verdict"} content={data.Verdict}/>
@@ -281,19 +294,23 @@ export async function getServerSideProps ({query}) {
     const comparisonResponse = await fetch(process.env.REACT_APP_API_HOST+"/api/v2/car/comparison-result?id="+query.cid);
     const comparisonsData = await comparisonResponse.json();
     console.log("Status code: "+comparisonResponse.status);
-    var pageImage = "";
-    for(var i = 0; i < comparisonsData.carsData.length; i++) {
-        if (comparisonsData.carsData[i].rank === 1 ) {
-            pageImage = comparisonsData.carsData[i].image;
+    if (comparisonResponse.ok) {
+        var pageImage = "";
+        for(var i = 0; i < comparisonsData.carsData.length; i++) {
+            if (comparisonsData.carsData[i].rank === 1 ) {
+                pageImage = comparisonsData.carsData[i].image;
+            }
         }
-    }
 
-    return {
-      props: {"popularComparisons":comparisons, "comparisonFeatures":comparisonsData.criteria, "title":comparisonsData.title,
-                "headPara":comparisonsData.headPara, "threeCarsComparison":comparisonsData.threeCarsComparison,
-            "carsData":comparisonsData.carsData, "categorizedSpecs":comparisonsData.categorizedSpecs,
-            "descriptions":comparisonsData.descriptions, "verdict":comparisonsData.verdict, "pageImage":pageImage,
-        "url":comparisonsData.url, "statusCode":comparisonResponse.status}, // will be passed to the page component as props
+        return {
+        props: {"popularComparisons":comparisons, "comparisonFeatures":comparisonsData.criteria, "title":comparisonsData.title,
+                    "headPara":comparisonsData.headPara, "threeCarsComparison":comparisonsData.threeCarsComparison,
+                "carsData":comparisonsData.carsData, "categorizedSpecs":comparisonsData.categorizedSpecs,
+                "descriptions":comparisonsData.descriptions, "verdict":comparisonsData.verdict, "pageImage":pageImage,
+            "url":comparisonsData.url, "statusCode":comparisonResponse.status}, // will be passed to the page component as props
+        }
+    } else {
+        return {props: {"statusCode":comparisonResponse.status},}
     }
 }
 
