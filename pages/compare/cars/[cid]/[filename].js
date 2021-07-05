@@ -15,6 +15,7 @@ function CarComparisonResult (props) {
     const [threeCarsComparison, setThreeCarsComparison] = React.useState( props.threeCarsComparison);
     const [popularComparisonsPage, setPopularComparisonsPage] = React.useState(1);
     const [isMobile, setIsMobile] = React.useState(false);
+    const [statusCode, setStatusCode] = React.useState(props.statusCode);
     const [data, setData] = React.useState( {
                 "headPara": {"title": props.title, "content": props.headPara},
                 "descriptions":props.descriptions,
@@ -52,9 +53,12 @@ function CarComparisonResult (props) {
 
     useEffect( () => {
         setIsMobile(window.innerWidth < 992 ? true : false);
+        
     }, [])
 
-    
+    if (statusCode !== 200) {
+        
+    }
     // let isMobile = this.state.isMobile ;
     return (
         <>
@@ -276,7 +280,7 @@ export async function getServerSideProps ({query}) {
     const comparisons = await comparisonsResults.json();
     const comparisonResponse = await fetch(process.env.REACT_APP_API_HOST+"/api/v2/car/comparison-result?id="+query.cid);
     const comparisonsData = await comparisonResponse.json();
-    console.log("Query 2: "+JSON.stringify(comparisonsData));
+    console.log("Status code: "+comparisonResponse.status);
     var pageImage = "";
     for(var i = 0; i < comparisonsData.carsData.length; i++) {
         if (comparisonsData.carsData[i].rank === 1 ) {
@@ -289,7 +293,7 @@ export async function getServerSideProps ({query}) {
                 "headPara":comparisonsData.headPara, "threeCarsComparison":comparisonsData.threeCarsComparison,
             "carsData":comparisonsData.carsData, "categorizedSpecs":comparisonsData.categorizedSpecs,
             "descriptions":comparisonsData.descriptions, "verdict":comparisonsData.verdict, "pageImage":pageImage,
-        "url":comparisonsData.url}, // will be passed to the page component as props
+        "url":comparisonsData.url, "statusCode":comparisonResponse.status}, // will be passed to the page component as props
     }
 }
 
