@@ -167,7 +167,7 @@ export default class CompareForm extends Component {
                 </div>
 
                 <div className="btn-wrapper d-lg-none mt-3">
-                    <button  className="btn-compare reverse w100">Compare</button>
+                <Link href="/compare/cars"><button  className="btn-compare reverse w100">Compare</button></Link>
                 </div>
             </div>
         )
