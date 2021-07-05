@@ -1,0 +1,17 @@
+# https://www.robotstxt.org/robotstxt.html
+
+
+User-agent: googlebot
+User-agent: google
+User-agent: bingbot
+User-agent: bing
+User-agent: AhrefsBot
+Disallow: 
+
+User-agent: *
+Disallow: /
+
+
+Sitemap: https://suggestrank.com/sitemap.xml
+Sitemap: https://suggestrank.com/sitemap2.xml
+Sitemap: https://suggestrank.com/blog/sitemap_index.xml
