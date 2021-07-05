@@ -6,6 +6,7 @@ import PopularArticle from '../components/articles/popular-article'
 import RecentArticle from '../components/articles/recent-article'
 const { DOMParser } = require('xmldom')
 import Head from "next/head";
+import Link from 'next/link'
 
 export default class Home extends React.Component {
 
@@ -195,7 +196,7 @@ export default class Home extends React.Component {
                     <h1>Are you planning <br/>to buy a new car,<br/>compare cars today.</h1>
                     <h4>Our car comparison tool helps you with <br/>clear difference between your chosen cars.</h4>
         
-                    <button className="btn-compare">Compare</button>
+                    <Link href="/compare/cars"><button className="btn-compare">Compare</button></Link>
                 </div>
             </div>
         

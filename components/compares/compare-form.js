@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Link from 'next/link'
 
 export default class CompareForm extends Component {
     
@@ -99,7 +100,7 @@ export default class CompareForm extends Component {
                     <h4 className="fw-bold mb-0">Select any two cars to compare</h4>
                     <span className="">Our car comparison tool helps you with clear difference between your chosen cars.</span>
                     <div className="btn-wrapper d-lg-inline-block d-none">
-                        <button onClick={this.props.compare} className="btn-compare reverse">Compare</button>
+                    <Link href="/compare/cars"><button onClick={this.props.compare} className="btn-compare reverse">Compare</button></Link>
                     </div>
                 </div>
 
@@ -166,7 +167,7 @@ export default class CompareForm extends Component {
                 </div>
 
                 <div className="btn-wrapper d-lg-none mt-3">
-                    <button className="btn-compare reverse w100">Compare</button>
+                    <button  className="btn-compare reverse w100">Compare</button>
                 </div>
             </div>
         )
