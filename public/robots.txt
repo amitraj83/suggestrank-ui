@@ -12,6 +12,7 @@ User-agent: *
 Disallow: /
 
 
-Sitemap: https://suggestrank.com/sitemap.xml
 Sitemap: https://suggestrank.com/sitemap2.xml
+Sitemap: https://suggestrank.com/sitemap3.xml
+Sitemap: https://suggestrank.com/sitemap4.xml
 Sitemap: https://suggestrank.com/blog/sitemap_index.xml
