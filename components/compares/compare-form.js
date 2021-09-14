@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Link from 'next/link'
-
+import Image from 'next/image'
+import vsImage from "../../public/image/vs.png"
 export default class CompareForm extends Component {
     
     constructor(props) {
@@ -134,7 +135,7 @@ export default class CompareForm extends Component {
                         </div>
                     </div>
                     <div className="col-md-2 img-vs-wrapper mt-3">
-                        <img className="" src="/image/vs.png"/>
+                        <Image src={vsImage} width="20px" height="20px"/>
                     </div>
                     <div className="col-md-5">
                         <div className="row">
