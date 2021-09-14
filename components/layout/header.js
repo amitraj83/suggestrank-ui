@@ -33,7 +33,11 @@ function Header (props) {
                 <nav className="navbar navbar-expand-lg bg-light sticky-top">
                     <div className="container">
                         <div className="d-flex flex-grow-1">
-                            <img className="logo" src="/image/logo.png"/>
+                            <picture>
+                                <source className="logo" srcSet="/image/logo.png?webp" type="image/webp" />
+                                <source className="logo" srcSet="/image/logo.png" type="image/png"/>
+                                <img className="logo" src="/image/logo.png"/>
+                            </picture>
                             <div className="w-100 text-end">
                                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#myNavbar">
                                     <i class="far fa-bars"></i>

@@ -8,7 +8,11 @@ export default class RecentArticle extends Component {
         return (
             <div className="article recent">
                 <div className="image-wrapper">
-                    <img src={this.props.articleData.imageUrl} />
+                    <picture>
+                        <source srcSet={this.props.articleData.imageUrl+'?webp'} type='image/webp'  style={{width:'100%', height:'100%'}}/>
+                        <source srcSet={this.props.articleData.imageUrl} type='image/jpeg'  style={{width:'100%', height:'100%'}}/>
+                        <img src={this.props.articleData.imageUrl}  style={{width:'100%', height:'100%'}}/>
+                    </picture>
                     <span className="article-date fs-8 fw-bold text-white">{this.props.articleData.date}</span>
                 </div>
                 <div className="artical-content p-2"> 
