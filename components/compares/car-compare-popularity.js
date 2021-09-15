@@ -15,9 +15,9 @@ render() {
     <div className="popularity-wrapper mt-3">
             <div className="title mb-3">
                 <picture>
-                <source srcSet={'/image/popularity.png?webp'} type='image/webp' />
-                <source srcSet={'/image/popularity.png'} type='image/png' />
-                <img src={'/image/popularity.png'} />
+                <source srcSet={require('../../public/image/popularity.png?webp')} type='image/webp' />
+                <source srcSet={require('../../public/image/popularity.png')} type='image/png' />
+                <img src={require('../../public/image/popularity.png')} />
                 </picture>
                 <span className="fw-bold fs-6 text-uppercase">popularity</span>
             </div>

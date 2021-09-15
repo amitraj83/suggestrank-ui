@@ -92,9 +92,9 @@ export default class Home extends React.Component {
                             <div className="col-md-4 d-lg-block d-none">
                                 <div className="compare-img">
                                 <picture>
-                                <source srcSet={'/image/car1.png?webp'} type='image/webp'/>
-                                <source srcSet={'/image/car1.png'} type='image/png'/>
-                                <img src={'/image/car1.png'} width='100%' height='100%'/>
+                                <source srcSet={require('../public/image/car1.png?webp')} type='image/webp'/>
+                                <source srcSet={require('../public/image/car1.png')} type='image/png'/>
+                                <img src={require('../public/image/car1.png')} width='100%' height='100%'/>
                                 </picture>
                                 </div>
                             </div>

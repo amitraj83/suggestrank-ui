@@ -34,9 +34,9 @@ function Header (props) {
                     <div className="container">
                         <div className="d-flex flex-grow-1">
                             <picture>
-                                <source className="logo" srcSet={'/image/logo.png?webp'} type="image/webp" />
-                                <source className="logo" srcSet={'/image/logo.png'} type="image/png"/>
-                                <img className="logo" src={'/image/logo.png'}/>
+                                <source className="logo" srcSet={require('../../public/image/logo.png?webp')} type="image/webp" />
+                                <source className="logo" srcSet={require('../../public/image/logo.png')} type="image/png"/>
+                                <img className="logo" src={require('../../public/image/logo.png')}/>
                             </picture>
                             <div className="w-100 text-end">
                                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#myNavbar">
