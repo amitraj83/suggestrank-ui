@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Link from 'next/link'
+import Image from 'next/image'
 
 export default class PopularArticle extends Component {
     constructor(props) {
@@ -9,7 +10,20 @@ export default class PopularArticle extends Component {
         return (
             <Link href={this.props.articleData.link} >
             <div className="article popular">
-                <div className="image-wrapper" style={{ backgroundImage: `url(${this.props.articleData.imageUrl})` }}>
+                {/* <div className="image-wrapper" style={{ backgroundImage: `url(${this.props.articleData.imageUrl})` }}> */}
+                <div className="image-wrapper" >
+                    <Image 
+                    src={this.props.articleData.imageUrl} 
+                    alt="Car comparison blog" 
+                    width='100%' 
+                    height='100%' 
+                    loading="lazy"
+                    layout="responsive"
+                    quality="75"
+                    placeholder="empty"
+                    
+                    /> 
+                
                     
                     <span className="article-date fs-8 fw-bold text-white">{this.props.articleData.date}</span>
                 </div>
