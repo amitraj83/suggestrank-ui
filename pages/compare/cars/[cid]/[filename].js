@@ -253,16 +253,16 @@ function CarComparisonResult (props) {
                         <div className="prev-next">
                             <div className="pn-item" onClick={prewCompare}>
                             <picture>
-                                <source srcSet={require('../../../../public/image/prev.png?webp')} type='image/webp'/>
-                                <source srcSet={require('../../../../public/image/prev.png')} type='image/png'/>
-                                <img src={require('../../../../public/image/prev.png')} />
+                                <source srcSet={'../..//image/prev.png?webp'} type='image/webp'/>
+                                <source srcSet={'../..//image/prev.png'} type='image/png'/>
+                                <img src={'../..//image/prev.png'} />
                             </picture>
                             </div>
                             <div className="pn-item">
                             <picture>
-                                <source srcSet={require('../../../../public/image/next.png?webp')} type='image/webp'/>
-                                <source srcSet={require('../../../../public/image/next.png')} type='image/png'/>
-                                <img src={require('../../../../public/image/next.png')}  onClick={nextCompare}/>
+                                <source srcSet={'../..//image/next.png?webp'} type='image/webp'/>
+                                <source srcSet={'../..//image/next.png'} type='image/png'/>
+                                <img src={'../..//image/next.png'}  onClick={nextCompare}/>
                             </picture>
                             </div>
                         </div>

@@ -14,12 +14,12 @@ render() {
     
     <div  className="item-img mb-3" >
         <picture>
-            <source  srcSet={require('../../public/image/medal-'+this.props.data.rank+'.png?webp')} type="image/webp" 
+            <source  srcSet={'/image/medal-'+this.props.data.rank+'.png?webp'} type="image/webp" 
             style={{position:'absolute', height:"40px", width:"40px", marginLeft:"-40px"}}  /> 
-            <source srcSet={require('../../public/image/medal-'+this.props.data.rank+'.png')} type="image/png" 
+            <source srcSet={'/image/medal-'+this.props.data.rank+'.png'} type="image/png" 
             style={{position:'absolute', height:"40px", width:"40px", marginLeft:"-40px"}}  /> 
             <img style={{position:'absolute', height:"40px", width:"40px", marginLeft:"-40px"}} 
-            src={'../../public/image/medal-'+this.props.data.rank+'.png'} />
+            src={'/image/medal-'+this.props.data.rank+'.png'} />
         </picture>
         <picture>
             <source srcSet={this.props.data.image+'?webp'} type='image/webp' />

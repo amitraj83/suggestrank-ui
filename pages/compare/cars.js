@@ -244,9 +244,9 @@ function Compare (props) {
 
                                     <div className="vs-image">
                                     <picture>
-                                        <source srcSet={require('../../public/image/vs.png?webp')} type='image/webp'/>
-                                        <source srcSet={require('../../public/image/vs.png')} type='image/png'/>
-                                        <img src={require('../../public/image/vs.png')} />
+                                        <source srcSet={'/image/vs.png?webp'} type='image/webp'/>
+                                        <source srcSet={'/image/vs.png'} type='image/png'/>
+                                        <img src={'/image/vs.png'} />
                                     </picture>
                                     </div>
                                 </div>

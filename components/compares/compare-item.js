@@ -13,9 +13,9 @@ export default class CompareItem extends Component {
                     <div className="col-6 compare-item-left">
                         <div className="item-img">
                             <picture>
-                            <source srcSet={require('../../public/images/'+this.props.compareData.car1Image+'?webp')} type='image/webp' />
-                            <source srcSet={require('../../public/images/'+this.props.compareData.car1Image)} type='image/jpeg' />
-                            <img src={require('../../public/images/'+this.props.compareData.car1Image)} />
+                            <source srcSet={'/images/'+this.props.compareData.car1Image+'?webp'} type='image/webp' />
+                            <source srcSet={'/images/'+this.props.compareData.car1Image} type='image/jpeg' />
+                            <img src={'/images/'+this.props.compareData.car1Image} />
                             </picture>
                         </div>
                         <div className="value">
@@ -26,9 +26,9 @@ export default class CompareItem extends Component {
                     <div className="col-6 compare-item-right">
                         <div className="item-img">
                             <picture>
-                            <source srcSet={require('../../public/images/'+this.props.compareData.car2Image+'?webp')} type='image/webp' />
-                            <source srcSet={require('../../public/images/'+this.props.compareData.car2Image)} type='image/jpeg'/>
-                            <img src={require('../../public/images/'+this.props.compareData.car2Image)} />
+                            <source srcSet={'/images/'+this.props.compareData.car2Image+'?webp'} type='image/webp' />
+                            <source srcSet={'/images/'+this.props.compareData.car2Image} type='image/jpeg'/>
+                            <img src={'/images/'+this.props.compareData.car2Image} />
                             </picture>
                         </div>
                         <div className="value">
@@ -40,9 +40,9 @@ export default class CompareItem extends Component {
 
                 <div className="vs-image">
                     <picture>
-                    <source srcSet={require('../../public/image/vs-orange.png?webp')} type='image/webp' />
-                    <source srcSet={require('../../public/image/vs-orange.png')} type='image/png'/>
-                    <img src={require('../../public/image/vs-orange.png')} />
+                    <source srcSet={'/image/vs-orange.png?webp'} type='image/webp' />
+                    <source srcSet={'/image/vs-orange.png'} type='image/png'/>
+                    <img src={'/image/vs-orange.png'} />
                     </picture>
                 </div>
             </div>

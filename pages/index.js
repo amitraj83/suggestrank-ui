@@ -92,9 +92,9 @@ export default class Home extends React.Component {
                             <div className="col-md-4 d-lg-block d-none">
                                 <div className="compare-img">
                                 <picture>
-                                <source srcSet={require('../public/image/car1.png?webp')} type='image/webp'/>
-                                <source srcSet={require('../public/image/car1.png')} type='image/png'/>
-                                <img src={require('../public/image/car1.png')} />
+                                <source srcSet={'/image/car1.png?webp'} type='image/webp'/>
+                                <source srcSet={'/image/car1.png'} type='image/png'/>
+                                <img src={'/image/car1.png'} width='100%' height='100%'/>
                                 </picture>
                                 </div>
                             </div>
@@ -116,16 +116,16 @@ export default class Home extends React.Component {
                         <div className="prev-next">
                             <div className="pn-item" onClick={this.prewCompare}>
                             <picture>
-                                <source srcSet={require('../public/image/prev.png?webp')} type='image/webp'/>
-                                <source srcSet={require('../public/image/prev.png')} type='image/png'/>
-                                <img src={require('../public/image/prev.png')} />
+                                <source srcSet={'/image/prev.png?webp'} type='image/webp'/>
+                                <source srcSet={'/image/prev.png'} type='image/png'/>
+                                <img src={'/image/prev.png'} />
                             </picture>
                             </div>
                             <div className="pn-item">
                             <picture>
-                                <source srcSet={require('../public/image/next.png?webp')} type='image/webp'/>
-                                <source srcSet={require('../public/image/next.png')} type='image/png'/>
-                                <img src={require('../public/image/next.png')} onClick={this.nextCompare}/>
+                                <source srcSet={'/image/next.png?webp'} type='image/webp'/>
+                                <source srcSet={'/image/next.png'} type='image/png'/>
+                                <img src={'/image/next.png'} onClick={this.nextCompare}/>
                             </picture>
                             </div>
                         </div>
