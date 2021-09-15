@@ -11,7 +11,7 @@ export default class Footer extends Component {
                           <picture>
                           <source  srcSet={require('../../public/image/footer-logo.png?webp')} type='image/webp'/>
                           <source  srcSet={require('../../public/image/footer-logo.png')} type='image/png'/>
-                          <img  src={require('../../public/image/footer-logo.png')}/>
+                          <img  src={require('../../public/image/footer-logo.png')} width="100%" height="100%"/>
                           </picture>
                       </div>
                       <div className="row">

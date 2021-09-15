@@ -5,6 +5,7 @@ import CardDescription from '../components/basic/card_description'
 import CompareItem from '../components/compares/compare-item'
 import ComparedData from '../components/compares/compared_data'
 import ProgressBar from '../components/basic/progressbar'
+import Image from 'next/image'
 
 export default class Compared extends React.Component {
     constructor(props) {
@@ -277,11 +278,18 @@ export default class Compared extends React.Component {
                                                     </div>
 
                                                     <div className="item-img mb-3">
-                                                        <picture>
-                                                        <source srcSet={this.state.data.car1Data.carImage+'?webp'}  type='image/webp'/>
-                                                        <source srcSet={this.state.data.car1Data.carImage} />
-                                                        <img src={this.state.data.car1Data.carImage} />
-                                                        </picture>
+                                                    
+                                                    <Image
+                                                        src={this.state.data.car1Data.carImage} 
+                                                        alt="Car comparison blog" 
+                                                        width='100%' 
+                                                        height='100%' 
+                                                        loading="lazy"
+                                                        layout="responsive"
+                                                        quality="50"
+                                                        placeholder="empty"
+                                                        /> 
+                                                        
                                                     </div>
                                                     <div className="value mb-4">
                                                         <label className="d-block fw-bold">Kia Sonet</label>
@@ -318,11 +326,17 @@ export default class Compared extends React.Component {
                                                     </div>
 
                                                     <div className="item-img mb-3">
-                                                        <picture>
-                                                        <source srcSet={this.state.data.car2Data.carImage+'?webp'} type='image/webp'/>
-                                                        <source srcSet={this.state.data.car2Data.carImage} />
-                                                        <img src={this.state.data.car2Data.carImage} />
-                                                        </picture>
+                                                    <Image
+                                                        src={this.state.data.car2Data.carImage} 
+                                                        alt="Car comparison blog" 
+                                                        width='100%' 
+                                                        height='100%' 
+                                                        loading="lazy"
+                                                        layout="responsive"
+                                                        quality="50"
+                                                        placeholder="empty"
+                                                        /> 
+                                                        
                                                     </div>
                                                     <div className="value mb-4">
                                                         <label className="d-block fw-bold">Kia Sonet</label>
@@ -357,7 +371,7 @@ export default class Compared extends React.Component {
                                                 <picture>
                                                 <source srcSet={require('../public/image/vs.png?webp')} type='image/webp'/>
                                                 <source srcSet={require('../public/image/vs.png')} type='image/png'/>
-                                                <img src={require('../public/image/vs.png')} />
+                                                <img src={require('../public/image/vs.png')} width="100%" height="100%"/>
                                                 </picture>
                                             </div>
 
@@ -455,14 +469,14 @@ export default class Compared extends React.Component {
                                 <picture>
                                 <source srcSet={'/image/prev.png?webp'} type='image/webp'/>
                                 <source srcSet={'/image/prev.png'} type='image/png'/>
-                                <img src={'/image/prev.png'} />
+                                <img src={'/image/prev.png'} width="100%" height="100%" />
                                 </picture>
                                 </div>
                                 <div className="pn-item">
                                 <picture>
                                 <source srcSet={'/image/next.png?webp'} type='image/webp'/>
                                 <source srcSet={'/image/next.png'} type='image/png'/>
-                                <img src={'/image/next.png'} onClick={this.nextCompare}/>
+                                <img src={'/image/next.png'} onClick={this.nextCompare} width="100%" height="100%"/>
                                 </picture>
 
                                 </div>

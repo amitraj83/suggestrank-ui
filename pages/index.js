@@ -118,14 +118,14 @@ export default class Home extends React.Component {
                             <picture>
                                 <source srcSet={'/image/prev.png?webp'} type='image/webp'/>
                                 <source srcSet={'/image/prev.png'} type='image/png'/>
-                                <img src={'/image/prev.png'} />
+                                <img src={'/image/prev.png'} width="100%" height="100%"/>
                             </picture>
                             </div>
                             <div className="pn-item">
                             <picture>
                                 <source srcSet={'/image/next.png?webp'} type='image/webp'/>
                                 <source srcSet={'/image/next.png'} type='image/png'/>
-                                <img src={'/image/next.png'} onClick={this.nextCompare}/>
+                                <img src={'/image/next.png'} onClick={this.nextCompare} width="100%" height="100%"/>
                             </picture>
                             </div>
                         </div>

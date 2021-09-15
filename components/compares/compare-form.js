@@ -137,7 +137,7 @@ export default class CompareForm extends Component {
                         <picture>
                         <source  srcSet={require('../../public/image/vs.png?webp')} type='image/webp' />
                         <source  srcSet={require('../../public/image/vs.png')} type='image/png'/>
-                        <img  src={require('../../public/image/vs.png')}/>
+                        <img  src={require('../../public/image/vs.png')} width="100%" height="100%"/>
                         </picture>
                     </div>
                     <div className="col-md-5">
