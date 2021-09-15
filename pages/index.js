@@ -91,7 +91,11 @@ export default class Home extends React.Component {
                         <div className="row">
                             <div className="col-md-4 d-lg-block d-none">
                                 <div className="compare-img">
-                                    <img src="image/car1.png" />
+                                <picture>
+                                <source srcSet={require('../public/image/car1.png?webp')} type='image/webp'/>
+                                <source srcSet={require('../public/image/car1.png')} type='image/png'/>
+                                <img src={require('../public/image/car1.png')} />
+                                </picture>
                                 </div>
                             </div>
                             <div className="col-md-8">
@@ -111,10 +115,18 @@ export default class Home extends React.Component {
                         <h4>Popular comparison</h4>
                         <div className="prev-next">
                             <div className="pn-item" onClick={this.prewCompare}>
-                                <img src="image/prev.png" />
+                            <picture>
+                                <source srcSet={require('../public/image/prev.png?webp')} type='image/webp'/>
+                                <source srcSet={require('../public/image/prev.png')} type='image/png'/>
+                                <img src={require('../public/image/prev.png')} />
+                            </picture>
                             </div>
                             <div className="pn-item">
-                                <img src="image/next.png"  onClick={this.nextCompare}/>
+                            <picture>
+                                <source srcSet={require('../public/image/next.png?webp')} type='image/webp'/>
+                                <source srcSet={require('../public/image/next.png')} type='image/png'/>
+                                <img src={require('../public/image/next.png')} onClick={this.nextCompare}/>
+                            </picture>
                             </div>
                         </div>
                     </div>

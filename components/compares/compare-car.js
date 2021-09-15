@@ -21,8 +21,11 @@ render() {
             <img style={{position:'absolute', height:"40px", width:"40px", marginLeft:"-40px"}} 
             src={'../../public/image/medal-'+this.props.data.rank+'.png'} />
         </picture>
-        <img src={this.props.data.image} />
-        
+        <picture>
+            <source srcSet={this.props.data.image+'?webp'} type='image/webp' />
+            <source srcSet={this.props.data.image} />
+            <img src={this.props.data.image} />
+        </picture>
     </div>
     <div className="value mb-4">
         <label className="d-block fw-bold">{this.props.data.make+" "+this.props.data.model}</label>

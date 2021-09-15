@@ -174,7 +174,11 @@ function Compare (props) {
                                     <div className="row">
                                         <div className="col-6 compare-item-left">
                                             <div className="item-img mb-3">
+                                            <picture>
+                                                <source srcSet={data.car1Data.carImage+'?webp'} type='image/webp'/>
+                                                <source srcSet={data.car1Data.carImage} type='image/png'/>
                                                 <img src={data.car1Data.carImage} />
+                                            </picture>
                                             </div>
                                             <div className="value mb-4">
                                                 <label className="d-block fw-bold">{data.car1Data.make+" "+data.car1Data.model}</label>
@@ -204,7 +208,11 @@ function Compare (props) {
                                         </div>
                                         <div className="col-6 compare-item-right">
                                             <div className="item-img mb-3">
+                                            <picture>
+                                                <source srcSet={data.car2Data.carImage+'?webp'} type='image/webp'/>
+                                                <source srcSet={data.car2Data.carImage} type='image/png'/>
                                                 <img src={data.car2Data.carImage} />
+                                            </picture>
                                             </div>
                                             <div className="value mb-4">
                                                 <label className="d-block fw-bold">{data.car2Data.make+" "+data.car2Data.model}</label>
@@ -235,7 +243,11 @@ function Compare (props) {
                                     </div>
 
                                     <div className="vs-image">
-                                        <img src="/image/vs.png" />
+                                    <picture>
+                                        <source srcSet={require('../../public/image/vs.png?webp')} type='image/webp'/>
+                                        <source srcSet={require('../../public/image/vs.png')} type='image/png'/>
+                                        <img src={require('../../public/image/vs.png')} />
+                                    </picture>
                                     </div>
                                 </div>
                             </div>

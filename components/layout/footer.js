@@ -8,7 +8,11 @@ export default class Footer extends Component {
               <div className="row">
                   <div className="col-md-8">
                       <div className="footer-logo mb-4">
-                          <img className="" src="/image/footer-logo.png"/>
+                          <picture>
+                          <source  srcSet={require('../../public/image/footer-logo.png?webp')} type='image/webp'/>
+                          <source  srcSet={require('../../public/image/footer-logo.png')} type='image/png'/>
+                          <img  src={require('../../public/image/footer-logo.png')}/>
+                          </picture>
                       </div>
                       <div className="row">
                           <div className="col-md-6 mt-3">

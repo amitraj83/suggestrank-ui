@@ -8,7 +8,11 @@ export default class ComparedData extends Component {
         return (
             <div className="compared_data mt-2">
                 <div className="title">
+                    <picture>
+                    <source srcSet={this.props.data.image+'?webp'} type='image/webp'/>
+                    <source srcSet={this.props.data.image} type='image/jpeg'/>
                     <img src={this.props.data.image} />
+                    </picture>
                     <h6 className="mb-0 ms-2 d-inline-block text-uppercase fw-bold">{this.props.data.categoryName}</h6>
                 </div>
                 {this.props.threecars 

@@ -252,10 +252,18 @@ function CarComparisonResult (props) {
                         <h4>Popular comparison</h4>
                         <div className="prev-next">
                             <div className="pn-item" onClick={prewCompare}>
-                                <img src="/image/prev.png" />
+                            <picture>
+                                <source srcSet={require('../../../../public/image/prev.png?webp')} type='image/webp'/>
+                                <source srcSet={require('../../../../public/image/prev.png')} type='image/png'/>
+                                <img src={require('../../../../public/image/prev.png')} />
+                            </picture>
                             </div>
                             <div className="pn-item">
-                                <img src="/image/next.png"  onClick={nextCompare}/>
+                            <picture>
+                                <source srcSet={require('../../../../public/image/next.png?webp')} type='image/webp'/>
+                                <source srcSet={require('../../../../public/image/next.png')} type='image/png'/>
+                                <img src={require('../../../../public/image/next.png')}  onClick={nextCompare}/>
+                            </picture>
                             </div>
                         </div>
                     </div>
