@@ -5,6 +5,7 @@ import CardDescription from '../components/basic/card_description'
 import CompareItem from '../components/compares/compare-item'
 import ComparedData from '../components/compares/compared_data'
 import ProgressBar from '../components/basic/progressbar'
+import Image from 'next/image'
 
 export default class Compared extends React.Component {
     constructor(props) {
@@ -277,7 +278,18 @@ export default class Compared extends React.Component {
                                                     </div>
 
                                                     <div className="item-img mb-3">
-                                                        <img src={this.state.data.car1Data.carImage} />
+                                                    
+                                                    <Image
+                                                        src={this.state.data.car1Data.carImage} 
+                                                        alt="Car comparison blog" 
+                                                        width='100%' 
+                                                        height='100%' 
+                                                        loading="lazy"
+                                                        layout="responsive"
+                                                        quality="50"
+                                                        placeholder="empty"
+                                                        /> 
+                                                        
                                                     </div>
                                                     <div className="value mb-4">
                                                         <label className="d-block fw-bold">Kia Sonet</label>
@@ -314,7 +326,17 @@ export default class Compared extends React.Component {
                                                     </div>
 
                                                     <div className="item-img mb-3">
-                                                        <img src={this.state.data.car2Data.carImage} />
+                                                    <Image
+                                                        src={this.state.data.car2Data.carImage} 
+                                                        alt="Car comparison blog" 
+                                                        width='100%' 
+                                                        height='100%' 
+                                                        loading="lazy"
+                                                        layout="responsive"
+                                                        quality="50"
+                                                        placeholder="empty"
+                                                        /> 
+                                                        
                                                     </div>
                                                     <div className="value mb-4">
                                                         <label className="d-block fw-bold">Kia Sonet</label>
@@ -346,12 +368,20 @@ export default class Compared extends React.Component {
                                             </div>
 
                                             <div className="vs-image compared">
-                                                <img src="image/vs.png" />
+                                                <picture>
+                                                <source srcSet={require('../public/image/vs.png?webp')} type='image/webp'/>
+                                                <source srcSet={require('../public/image/vs.png')} type='image/png'/>
+                                                <img src={require('../public/image/vs.png')} width="100%" height="100%"/>
+                                                </picture>
                                             </div>
 
                                             <div className="popularity-wrapper mt-3">
                                                 <div className="title mb-3">
-                                                    <img src="image/popularity.png" />
+                                                <picture>
+                                                <source srcSet={require('../public/image/popularity.png?webp')} type='image/webp'/>
+                                                <source srcSet={require('../public/image/popularity.png')} type='image/png'/>
+                                                <img src={require('../public/image/popularity.png')} />
+                                                </picture>
                                                     <span className="fw-bold fs-6 text-uppercase">popularity</span>
                                                 </div>
 
@@ -436,10 +466,19 @@ export default class Compared extends React.Component {
                             <h4>Popular comparison</h4>
                             <div className="prev-next">
                                 <div className="pn-item" onClick={this.prewCompare}>
-                                    <img src="image/prev.png" />
+                                <picture>
+                                <source srcSet={'/image/prev.png?webp'} type='image/webp'/>
+                                <source srcSet={'/image/prev.png'} type='image/png'/>
+                                <img src={'/image/prev.png'} width="100%" height="100%" />
+                                </picture>
                                 </div>
                                 <div className="pn-item">
-                                    <img src="image/next.png"  onClick={this.nextCompare}/>
+                                <picture>
+                                <source srcSet={'/image/next.png?webp'} type='image/webp'/>
+                                <source srcSet={'/image/next.png'} type='image/png'/>
+                                <img src={'/image/next.png'} onClick={this.nextCompare} width="100%" height="100%"/>
+                                </picture>
+
                                 </div>
                             </div>
                         </div>

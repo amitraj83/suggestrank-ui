@@ -14,7 +14,11 @@ render() {
     
     <div className="popularity-wrapper mt-3">
             <div className="title mb-3">
-                <img src="/image/popularity.png" />
+                <picture>
+                <source srcSet={require('../../public/image/popularity.png?webp')} type='image/webp' />
+                <source srcSet={require('../../public/image/popularity.png')} type='image/png' />
+                <img src={require('../../public/image/popularity.png')} width="20px" height="20px"/>
+                </picture>
                 <span className="fw-bold fs-6 text-uppercase">popularity</span>
             </div>
             {this.props.data.threecars

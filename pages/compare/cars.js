@@ -4,6 +4,7 @@ import { useRouter } from 'next/router'
 import CompareForm from '../../components/compares/compare-form'
 import FeaturesItem from '../../components/comparision_features/features_item'
 import Head from "next/head";
+import Image from 'next/image'
 
 function Compare (props) {
     const router = useRouter();
@@ -174,7 +175,17 @@ function Compare (props) {
                                     <div className="row">
                                         <div className="col-6 compare-item-left">
                                             <div className="item-img mb-3">
-                                                <img src={data.car1Data.carImage} />
+                                            <Image
+                                                src={data.car1Data.carImage} 
+                                                alt="Car comparison blog" 
+                                                width='100%' 
+                                                height='100%' 
+                                                loading="lazy"
+                                                layout="responsive"
+                                                quality="50"
+                                                placeholder="empty"
+                                                /> 
+                                            
                                             </div>
                                             <div className="value mb-4">
                                                 <label className="d-block fw-bold">{data.car1Data.make+" "+data.car1Data.model}</label>
@@ -204,7 +215,17 @@ function Compare (props) {
                                         </div>
                                         <div className="col-6 compare-item-right">
                                             <div className="item-img mb-3">
-                                                <img src={data.car2Data.carImage} />
+                                            <Image
+                                                src={data.car2Data.carImage} 
+                                                alt="Car comparison blog" 
+                                                width='100%' 
+                                                height='100%' 
+                                                loading="lazy"
+                                                layout="responsive"
+                                                quality="50"
+                                                placeholder="empty"
+                                                /> 
+                                            
                                             </div>
                                             <div className="value mb-4">
                                                 <label className="d-block fw-bold">{data.car2Data.make+" "+data.car2Data.model}</label>
@@ -235,7 +256,11 @@ function Compare (props) {
                                     </div>
 
                                     <div className="vs-image">
-                                        <img src="/image/vs.png" />
+                                    <picture>
+                                        <source srcSet={'/image/vs.png?webp'} type='image/webp'/>
+                                        <source srcSet={'/image/vs.png'} type='image/png'/>
+                                        <img src={'/image/vs.png'} width="100%" height="100%"/>
+                                    </picture>
                                     </div>
                                 </div>
                             </div>

@@ -47,6 +47,12 @@ body {
   }
 }
 
+.absDiv{
+    position: absolute;
+    top: 50px;
+  }
+
+
 
 .banner {
   color: white;
@@ -57,7 +63,7 @@ body {
 
   .banner-background {
       position: absolute;
-      background: linear-gradient(0deg, rgba(26, 25, 25, 0.4), rgba(26, 25, 25, 0.4)), url(../public/image/banner-back.jpg)  ;
+      background: linear-gradient(0deg, rgba(26, 25, 25, 0.4), rgba(26, 25, 25, 0.4)), url(/image/banner-back.jpg?trace)  ;
       top: 0;
       right: 0;
       left: 0;
@@ -258,7 +264,7 @@ body {
 
 .section-action {
   color: white;
-  background-image: url(../public/image/bg1.jpg);
+  background-image: url(/image/bg1.jpg);
   background-size: cover;
   background-position-y: bottom;
 
@@ -288,7 +294,7 @@ body {
           overflow: hidden;
           position: relative;
           width: 100%;
-          padding-top: 65%;
+          
 
           img {
               width: 100%;
@@ -479,7 +485,7 @@ body {
 							height: 60px;
 							padding-top: 6px;
     					vertical-align: middle;
-							background-image: url(../public/image/rank.png);
+							background-image: url(/image/rank.png);
 
 							span.number {
 								margin-bottom: -5px;
@@ -487,7 +493,7 @@ body {
 						}
 
 						&.winner .rank{
-							background-image: url(../public/image/rank-winner.png);
+							background-image: url(/image/rank-winner.png);
 						}
 
 						.winnder-item {

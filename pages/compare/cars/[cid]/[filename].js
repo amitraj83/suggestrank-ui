@@ -10,6 +10,7 @@ import CompareCarPopularity from '../../../../components/compares/car-compare-po
 import ComparedData from '../../../../components/compares/compared_data'
 import Head from "next/head";
 import ErrorPage from '../../../errorpage'
+import InfiniteScroll from "react-infinite-scroll-component";
 
 
 function CarComparisonResult (props) {
@@ -19,14 +20,17 @@ function CarComparisonResult (props) {
     const [popularComparisonsPage, setPopularComparisonsPage] = React.useState(1);
     const [isMobile, setIsMobile] = React.useState(false);
     const [statusCode, setStatusCode] = React.useState(props.statusCode);
+    const [items, setItems] = React.useState([]);
+    const [hasMoreElements, setHasMoreElements] = React.useState(true);
+    const [standaloneDescriptions, setStandaloneDescriptions] = React.useState([]);
+    const [standaloneVerdict, setStandaloneVerdict] = React.useState("");
+    const [standalonePopularComparisons, setStandalonePopularComparisons] = React.useState();
     const [data, setData] = React.useState( {
                 "headPara": {"title": props.title, "content": props.headPara},
-                "descriptions":props.descriptions,
-                "Verdict": props.verdict,
                 "comparisonFeatures":props.comparisonFeatures,
                 "carsData":props.carsData,
-                "popularComparisons":props.popularComparisons,
-                "specs": props.categorizedSpecs
+                "specs": props.categorizedSpecs,
+                "cid":0
             });
 
         // this.prewCompare = this.prewCompare.bind(this);
@@ -52,6 +56,31 @@ function CarComparisonResult (props) {
         var newData = {...data}
         newData.popularComparisons = comps;
         await setData(newData);
+    }
+
+    const fetchMoreData = async () => {
+        if (items.length > 1) {
+            const comparisonsResults = await fetch(process.env.NEXT_PUBLIC_REACT_APP_API_HOST+"/api/v2/car/popular-comparisons");
+            const comparisons = await comparisonsResults.json();
+            await setStandalonePopularComparisons(comparisons);
+            await setHasMoreElements(false);
+        } else {
+            var newItems = items.concat(Array.from({length:1}));
+            await setItems(newItems);
+            await setHasMoreElements(true);
+        }
+        const comparisonResponse = await fetch(process.env.NEXT_PUBLIC_REACT_APP_API_HOST+"/api/v2/car/comparison-result-content?id="+props.cid);
+        const comparisonsData = await comparisonResponse.json();
+        if (comparisonResponse.ok) {
+            var currentData = data;
+            currentData.descriptions = comparisonsData.descriptions;
+            await setStandaloneDescriptions(comparisonsData.descriptions);
+            currentData.verdict = comparisonsData.verdict;
+            await setStandaloneVerdict(comparisonsData.verdict);
+            await setData(currentData);
+
+        }
+        
     }
     
     useEffect( () => {
@@ -104,6 +133,7 @@ function CarComparisonResult (props) {
             
         </Head> 
         <div className="page-car">
+        
             <div className="section pt-2 page-wrapper">
                 <div className="container">
                     <div className="section-wrapper">
@@ -223,21 +253,85 @@ function CarComparisonResult (props) {
                                         )}
                                         
                                     </div>
-                                
-                                    <div className="row">
-                                        {data !== undefined && data.descriptions !== undefined 
-                                            ? data.descriptions.map(d => 
-                                            <div className="col-md-6 mt-4">
-                                                <CardDescription title={d.title} content={d.content}/>
-                                            </div>
-                                            )
-                                            : <></>
-                                        }
+                                    <InfiniteScroll
+                                        dataLength={items.length}
+                                        next={fetchMoreData}
+                                        hasMore={hasMoreElements}
+                                        loader={<center><h4>...</h4></center>}
+                                        style={{ overflow:"inherit"}}
+                                        >
+                                            {items.map((i, index) => {
+                                                if (index === 0 ) {
+                                                    return <div className="row">
+                                                    {data !== undefined && data.descriptions !== undefined 
+                                                        ? data.descriptions.map(d => 
+                                                        <div className="col-md-6 mt-4">
+                                                            <CardDescription title={d.title} content={d.content}/>
+                                                        </div>
+                                                        )
+                                                        : <></>
+                                                    }
+                                                    
+                                                    <div className="col-md-12 mt-4">
+                                                        <CardDescription title={"Verdict"} content={standaloneVerdict}/>
+                                                    </div>
+                                                </div>
+                                                } else if (index == 1) {
+                                                    return <div className="row" style={{marginTop:"50px"}}>
+                                                    <div className="section pt-0">
+                                                        <div className="container">
+                                                            <div className="section-title">
+                                                                <h4>Popular comparison</h4>
+                                                                <div className="prev-next">
+                                                                    <div className="pn-item" onClick={prewCompare}>
+                                                                    <picture>
+                                                                        <source srcSet={require('../../../../public/image/prev.png?webp')} type='image/webp'/>
+                                                                        <source srcSet={require('../../../../public/image/prev.png')} type='image/png'/>
+                                                                        <img src={require('../../../../public/image/prev.png')} width="100%" height="100%"/>
+                                                                    </picture>
+                                                                    </div>
+                                                                    <div className="pn-item">
+                                                                    <picture>
+                                                                        <source srcSet={require('../../../../public/image/next.png?webp')} type='image/webp'/>
+                                                                        <source srcSet={require('../../../../public/image/next.png')} type='image/png'/>
+                                                                        <img src={require('../../../../public/image/next.png')}  onClick={nextCompare} width="100%" height="100%"/>
+                                                                    </picture>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                
+                                                            <div className="section-content">
+                                                                <div className="d-none d-sm-block">
+                                                                    <div className="row">
+                                                                    {standalonePopularComparisons && standalonePopularComparisons.map((item, index) => 
+                                                                        <div className="col-sm-3">
+                                                                            <CompareItem compareData={item} key={index}/>
+                                                                        </div>
+                                                                    )}
+                                                                    </div>
+                                                                    
+                                                                </div>
+                                                                    <div className="d-sm-none">
+                                                                    {standalonePopularComparisons && standalonePopularComparisons.map((item, index) => 
+                                                                            <CompareItem compareData={item} key={index}/>
+                                                                    )}
+                                                                </div> 
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    </div>
+                                                }
+                                            })}
+                                            
+                                                
+                                                
+                                                </InfiniteScroll>
+                                           
                                         
-                                        <div className="col-md-12 mt-4">
-                                            <CardDescription title={"Verdict"} content={data.Verdict}/>
-                                        </div>
-                                    </div>
+                                        
+                                    
+                                    
+
                                 </div>
                             </div>
 
@@ -246,39 +340,11 @@ function CarComparisonResult (props) {
                 </div>
             </div>
 
-            <div className="section pt-0">
-                <div className="container">
-                    <div className="section-title">
-                        <h4>Popular comparison</h4>
-                        <div className="prev-next">
-                            <div className="pn-item" onClick={prewCompare}>
-                                <img src="/image/prev.png" />
-                            </div>
-                            <div className="pn-item">
-                                <img src="/image/next.png"  onClick={nextCompare}/>
-                            </div>
-                        </div>
-                    </div>
-        
-                    <div className="section-content">
-                        <div className="d-none d-sm-block">
-                            <div className="row">
-                            {data.popularComparisons && data.popularComparisons.map((item, index) => 
-                                <div className="col-sm-3">
-                                    <CompareItem compareData={item} key={index}/>
-                                </div>
-                            )}
-                            </div>
-                            
-                        </div>
-                            <div className="d-sm-none">
-                            {data.popularComparisons && data.popularComparisons.map((item, index) => 
-                                    <CompareItem compareData={item} key={index}/>
-                            )}
-                        </div> 
-                    </div>
-                </div>
-            </div>
+
+
+           
+            
+            
         </div>
         </>
     );
@@ -288,12 +354,8 @@ function CarComparisonResult (props) {
 
 export async function getServerSideProps ({query}) {
     
-    // console.log("Page query: "+JSON.stringify(query));
-    const comparisonsResults = await fetch(process.env.REACT_APP_API_HOST+"/api/v2/car/popular-comparisons");
-    const comparisons = await comparisonsResults.json();
     const comparisonResponse = await fetch(process.env.REACT_APP_API_HOST+"/api/v2/car/comparison-result?id="+query.cid);
     const comparisonsData = await comparisonResponse.json();
-    console.log("Status code: "+comparisonResponse.status);
     if (comparisonResponse.ok) {
         var pageImage = "";
         for(var i = 0; i < comparisonsData.carsData.length; i++) {
@@ -303,11 +365,11 @@ export async function getServerSideProps ({query}) {
         }
 
         return {
-        props: {"popularComparisons":comparisons, "comparisonFeatures":comparisonsData.criteria, "title":comparisonsData.title,
+        props: { "comparisonFeatures":comparisonsData.criteria, "title":comparisonsData.title,
                     "headPara":comparisonsData.headPara, "threeCarsComparison":comparisonsData.threeCarsComparison,
                 "carsData":comparisonsData.carsData, "categorizedSpecs":comparisonsData.categorizedSpecs,
-                "descriptions":comparisonsData.descriptions, "verdict":comparisonsData.verdict, "pageImage":pageImage,
-            "url":comparisonsData.url, "statusCode":comparisonResponse.status}, // will be passed to the page component as props
+                 "pageImage":pageImage,
+            "url":comparisonsData.url, "statusCode":comparisonResponse.status, "cid":query.cid}, // will be passed to the page component as props
         }
     } else {
         return {props: {"statusCode":comparisonResponse.status},}
