@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import ProgressBar from '../basic/progressbar'
-import Image from 'next/image'
-import popularityPic from "/image/popularity.png"
 export default class CompareCarPopularity extends Component {
     constructor(props) {
         super(props);
@@ -16,7 +14,7 @@ render() {
     
     <div className="popularity-wrapper mt-3">
             <div className="title mb-3">
-                <Image src={popularityPic} layout='fill' />
+                <img src="/image/popularity.png" />
                 <span className="fw-bold fs-6 text-uppercase">popularity</span>
             </div>
             {this.props.data.threecars

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Image from 'next/image'
+
 export default class CompareResultCar extends Component {
     constructor(props) {
         super(props);
@@ -14,8 +14,8 @@ render() {
     
     <div  className="item-img mb-3" >
         
-        <Image style={{position:'absolute', height:"40px", width:"40px", marginLeft:"-40px"}} src={"/image/medal-"+this.props.data.rank+".png"} />
-        <Image src={this.props.data.image} layout='fill'/>
+        <img style={{position:'absolute', height:"40px", width:"40px", marginLeft:"-40px"}} src={"/image/medal-"+this.props.data.rank+".png"} />
+        <img src={this.props.data.image} />
         
     </div>
     <div className="value mb-4">

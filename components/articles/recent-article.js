@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Image from 'next/image'
 
 export default class RecentArticle extends Component {
     constructor(props) {
@@ -9,7 +8,7 @@ export default class RecentArticle extends Component {
         return (
             <div className="article recent">
                 <div className="image-wrapper">
-                    <Image src={this.props.articleData.imageUrl} layout='fill'/>
+                    <img src={this.props.articleData.imageUrl} />
                     <span className="article-date fs-8 fw-bold text-white">{this.props.articleData.date}</span>
                 </div>
                 <div className="artical-content p-2"> 

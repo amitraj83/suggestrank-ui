@@ -10,7 +10,7 @@ export default class PopularArticle extends Component {
             <Link href={this.props.articleData.link} >
             <div className="article popular">
                 <div className="image-wrapper" style={{ backgroundImage: `url(${this.props.articleData.imageUrl})` }}>
-                    
+                    {/* <img src={this.props.articleData.imageUrl} /> */}
                     <span className="article-date fs-8 fw-bold text-white">{this.props.articleData.date}</span>
                 </div>
                 <div className="artical-content p-2"> 
