@@ -7,12 +7,16 @@ import RecentArticle from '../components/articles/recent-article'
 const { DOMParser } = require('xmldom')
 import Head from "next/head";
 import Link from 'next/link'
+import InfiniteScroll from "react-infinite-scroll-component";
+
 
 export default class Home extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
+            items : Array.from({length:1}),
+            hasMoreElements:true,
             popularComparisonsPage:1,
             makes: props.makes,
             data: {
@@ -37,6 +41,7 @@ export default class Home extends React.Component {
 
         this.prewCompare = this.prewCompare.bind(this);
         this.nextCompare = this.nextCompare.bind(this);
+        this.fetchMoreData = this.fetchMoreData.bind(this);
     }
 
     async prewCompare() {
@@ -55,6 +60,41 @@ export default class Home extends React.Component {
         
         this.setState({ "data": {"popularComparisons":comps} });
     }
+
+    async fetchMoreData () {
+        this.setState({items:this.state.items.concat( Array.from({length:1}))});
+        if (this.state.items.length > 5) {
+            this.setState({hasMoreElements:false});
+        } else {
+            this.setState({hasMoreElements:true});
+            if (this.state.items.length === 2) {
+                const comparisonsResults = await fetch(process.env.NEXT_PUBLIC_REACT_APP_API_HOST+"/api/v2/car/popular-comparisons");
+                const comparisons = await comparisonsResults.json();
+                var currState = this.state.data;
+                currState.popularComparisons = comparisons;
+                await this.setState({ "data": currState });
+            } else if (this.state.items.length === 5) {
+                const postsResult = await fetch("https://suggestrank.com/blog/wp-json/wp/v2/posts?&page=1&per_page=4&_embed");
+                const posts = await postsResult.json();
+                var postsArray = [];
+                for (var i = 0; i < posts.length; i++) {
+                    var post = posts[i];
+                    var imageUrl = post.qubely_featured_image_url.portraits[0];
+                    var date = new Date(post.date).toDateString();
+                    var title = post.title.rendered.replace(/\s\s+/g, ' ').replace(/<[^>]+>/g, '').replace("&#8211;", " - ");
+                    // var content = new DOMParser().parseFromString(post.content.rendered.replace(/\s\s+/g, ' '), "text/html").documentElement.textContent.replace(/\n/g, '').replace(/(.{2000}).+/, "$1...");
+                    var content = post.content.rendered.replace(/\s\s+/g, ' ').replace(/<[^>]+>/g, '');
+                    var link = post.link;
+                    postsArray.push({"imageUrl":imageUrl, "date":date, "title":title, "content":content, "link":link});
+                }
+                var currState = this.state.data;
+                currState.popularArticles = postsArray;
+                await this.setState({ "data": currState });
+                // this.setState({ "data": {"popularArticles":postsArray} });
+            } 
+        }
+    }
+
     render() {
         return (
         <>
@@ -79,180 +119,207 @@ export default class Home extends React.Component {
 
       </Head>
         <div className="page-home page-wrapper">
-            <div className="banner">
-                <div className="container">
-                    <div className="banner-text-wrapper">
-                        <div className="banner-inner">
-                            <h1>Are you confused <br/>between multiple cars to<br/>choose from?</h1>
-                            <h4>Our car comparison tool helps you with <br/>clear difference between your chosen cars.</h4>
-                        </div>
-                    </div>
-                    <div className="compare-wrapper">
-                        <div className="row">
-                            <div className="col-md-4 d-lg-block d-none">
-                                <div className="compare-img">
-                                <picture>
-                                <source srcSet={require('../public/image/car1.png?webp')} type='image/webp'/>
-                                <source srcSet={require('../public/image/car1.png')} type='image/png'/>
-                                <img src={require('../public/image/car1.png')} width='100%' height='100%'/>
-                                </picture>
-                                </div>
-                            </div>
-                            <div className="col-md-8">
-                                <div className="p-4">
-                                    <CompareForm make={this.state.makes} models={this.state.data.models} variants={this.state.data.variants}/>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className="banner-background"></div>
-            </div>
-        
-            <div className="section">
-                <div className="container">
-                    <div className="section-title">
-                        <h4>Popular comparison</h4>
-                        <div className="prev-next">
-                            <div className="pn-item" onClick={this.prewCompare}>
-                            <picture>
-                                <source srcSet={'/image/prev.png?webp'} type='image/webp'/>
-                                <source srcSet={'/image/prev.png'} type='image/png'/>
-                                <img src={'/image/prev.png'} width="100%" height="100%"/>
-                            </picture>
-                            </div>
-                            <div className="pn-item">
-                            <picture>
-                                <source srcSet={'/image/next.png?webp'} type='image/webp'/>
-                                <source srcSet={'/image/next.png'} type='image/png'/>
-                                <img src={'/image/next.png'} onClick={this.nextCompare} width="100%" height="100%"/>
-                            </picture>
-                            </div>
-                        </div>
-                    </div>
-        
-                    <div className="section-content">
-                        <div className="d-none d-sm-block">
-                            <div className="row">
-                                {this.state.data.popularComparisons && this.state.data.popularComparisons.map((item, index) => 
-                                    <div className="col-sm-3">
-                                        <CompareItem compareData={item} key={index}/>
-                                    </div>
-                                    
-                                )}
-                            </div>
-                            
-                        </div>
-                        <div className="d-sm-none">
-                        {this.state.data.popularComparisons && this.state.data.popularComparisons.map((item, index) => 
-                                        <CompareItem compareData={item} key={index}/>
-                                    
-                                )}
-                        </div> 
-                    </div>
-                </div>
-            </div>
-        
-            <div className="section bg-white">
-                <div className="container">
-                    <div className="section-title">
-                        <h4>What we offer</h4>
-        
-                        
-                    </div>
-        
-                    <div className="section-content">
-                        <div className="row">
-                            <div className="col-md-6">
-                                <p className="fs-7">Comparison of two things is not always easy. Moreover, a comparison results 
-                                may be useful for one person but not for other. Its because different persons have different
-                                comparison criteria.</p>
-        
-                                <p className="fs-7">SuggestRank presents an innovative Car Comparison tool which lets you customize 
-                                your own comparison. You can define your own car comparison criteria, select cars and compare. The
-                                results will be very specific to your needs. It also suggest the ranking between the cars so that
-                                you can easily decide which car is better. </p>
-        
-                                <p className="fs-7">1000s of people are using this tool every day to check which car is better. So, 
-                                before you buy your next car, compare cars with SuggestRank and find out which car is better for your
-                                needs. </p>
-                            </div>
-                            <div className="col-md-6">
-                                <div className="row">
-                                    <div className="col-md-6 mb-3">
-                                        <ServiceItem data={{"title":"Cars Comparison", "description":"Select car compairson criteria such as engine size, carbon emission, number of cylinders, etc., and do a comparison. You can compare cars side by side and compare each specs. Also explains why a car is better than other one."}} reverse={true}/>
-                                    </div>
-                                    <div className="col-md-6 mb-3">
-                                        <ServiceItem data={{"title":"Cars Ranking", "description":"Unlike other car comparisons, we do the ranking of the cars as well. So, you get a decision automatically about which car is better. We do rankings based on several specs and then present a collective rank of cars."}} />
-                                    </div>
-        
-                                </div>
-                                <div className="row flex-row-reverse">
-                                    
-                                    <div className="col-md-6 mb-3">
-                                        <ServiceItem data={{"title":"Cars Data", "description":"If you are looking for cars data, we would be happy to share. We have data for more than 100K cars. Each car has more than 30+ specs. Please contact us at suggestrank@gmail.com"}}  reverse={true}/>
-                                    </div>
-        
-                                    <div className="col-md-6 mb-3">
-                                        <ServiceItem data={{"title":"Cars Specs", "description":"We have possibly all makes and models. So, if you are looking for the car specs of any car, we have them for you. You can check the specs related to Engine, dimensions, power, emission, etc."}} />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        
-            <div className="section text-end section-action">
-                <div className="container">
-                    <h1>Are you planning <br/>to buy a new car,<br/>compare cars today.</h1>
-                    <h4>Our car comparison tool helps you with <br/>clear difference between your chosen cars.</h4>
-        
-                    <Link href="/compare/cars"><button className="btn-compare">Compare</button></Link>
-                </div>
-            </div>
-        
-            <div className="container">
-                <div className="row">
-                    <div className="col-md-8">
-                        <div className="section">
-                            <div className="section-title">
-                                <h4>Popular Articles</h4>
-                            </div>
-            
-                            <div className="section-content">
-                                <div className="row">
-                                    {this.state.data.popularArticles&&this.state.data.popularArticles.map((item, index) =>
-                                        <div style={{cursor:"pointer"}} className="col-md-6 mb-2">
-                                            <PopularArticle articleData={item} key={index}/>
+
+            <InfiniteScroll
+            dataLength={this.state.items.length}
+            next={this.fetchMoreData}
+            hasMore={this.state.hasMoreElements}
+            loader={<center><h4>...</h4></center>}
+            >
+                
+                {this.state.items.map((i, index) => {
+                    console.log("Index: "+index);
+                    if (index === 0) {
+                        return <div className="banner">
+                                        <div className="container">
+                                            <div className="banner-text-wrapper">
+                                                <div className="banner-inner">
+                                                    <h1>Are you confused <br/>between multiple cars to<br/>choose from?</h1>
+                                                    <h4>Our car comparison tool helps you with <br/>clear difference between your chosen cars.</h4>
+                                                </div>
+                                            </div>
+                                            <div className="compare-wrapper">
+                                                <div className="row">
+                                                    <div className="col-md-4 d-lg-block d-none">
+                                                        <div className="compare-img">
+                                                        <picture>
+                                                        <source srcSet={require('../public/image/car1.png?webp')} type='image/webp'/>
+                                                        <source srcSet={require('../public/image/car1.png')} type='image/png'/>
+                                                        <img src={require('../public/image/car1.png')} width='100%' height='100%'/>
+                                                        </picture>
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-md-8">
+                                                        <div className="p-4">
+                                                            <CompareForm make={this.state.makes} models={this.state.data.models} variants={this.state.data.variants}/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                    )}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-md-4">
-                        <div className="section recent-article">
-                            <div className="section-title title-left">
-                                <h4>Recent Articles</h4>
-                            </div>
-            
-                            <div className="section-content">
-                                
-                                {this.state.data.recentArticles&&this.state.data.recentArticles.map((item, index) =>
-                                    <div className="mb-2">
-                                        <RecentArticle articleData={item} key={index}/>
+                                        <div className="banner-background"></div>
                                     </div>
-                                )}
-            
-                                <div className="btn-wrapper mt-3">
-                                    <button className="btn-compare">View All Articles</button>
+                    } else if (index === 1){
+                        return <div className="section">
+ <div className="container">
+     <div className="section-title">
+         <h4>Popular comparison</h4>
+         <div className="prev-next">
+             <div className="pn-item" onClick={this.prewCompare}>
+             <picture>
+                 <source srcSet={'/image/prev.png?webp'} type='image/webp'/>
+                 <source srcSet={'/image/prev.png'} type='image/png'/>
+                 <img src={'/image/prev.png'} width="100%" height="100%"/>
+             </picture>
+             </div>
+             <div className="pn-item">
+             <picture>
+                 <source srcSet={'/image/next.png?webp'} type='image/webp'/>
+                 <source srcSet={'/image/next.png'} type='image/png'/>
+                 <img src={'/image/next.png'} onClick={this.nextCompare} width="100%" height="100%"/>
+             </picture>
+             </div>
+         </div>
+     </div>
+
+     <div className="section-content">
+         <div className="d-none d-sm-block">
+             <div className="row">
+                 {this.state.data.popularComparisons && this.state.data.popularComparisons.map((item, index) => 
+                     <div className="col-sm-3">
+                         <CompareItem compareData={item} key={index}/>
+                     </div>
+                     
+                 )}
+             </div>
+             
+         </div>
+         <div className="d-sm-none">
+         {this.state.data.popularComparisons && this.state.data.popularComparisons.map((item, index) => 
+                         <CompareItem compareData={item} key={index}/>
+                     
+                 )}
+         </div> 
+     </div>
+ </div>
+</div>
+
+
+
+                    } else if (index === 2) {
+
+
+                        return <div className="section bg-white">
+                        <div className="container">
+                            <div className="section-title">
+                                <h4>What we offer</h4>
+                
+                                
+                            </div>
+                
+                            <div className="section-content">
+                                <div className="row">
+                                    <div className="col-md-6">
+                                        <p className="fs-7">Comparison of two things is not always easy. Moreover, a comparison results 
+                                        may be useful for one person but not for other. Its because different persons have different
+                                        comparison criteria.</p>
+                
+                                        <p className="fs-7">SuggestRank presents an innovative Car Comparison tool which lets you customize 
+                                        your own comparison. You can define your own car comparison criteria, select cars and compare. The
+                                        results will be very specific to your needs. It also suggest the ranking between the cars so that
+                                        you can easily decide which car is better. </p>
+                
+                                        <p className="fs-7">1000s of people are using this tool every day to check which car is better. So, 
+                                        before you buy your next car, compare cars with SuggestRank and find out which car is better for your
+                                        needs. </p>
+                                    </div>
+                                    <div className="col-md-6">
+                                        <div className="row">
+                                            <div className="col-md-6 mb-3">
+                                                <ServiceItem data={{"title":"Cars Comparison", "description":"Select car compairson criteria such as engine size, carbon emission, number of cylinders, etc., and do a comparison. You can compare cars side by side and compare each specs. Also explains why a car is better than other one."}} reverse={true}/>
+                                            </div>
+                                            <div className="col-md-6 mb-3">
+                                                <ServiceItem data={{"title":"Cars Ranking", "description":"Unlike other car comparisons, we do the ranking of the cars as well. So, you get a decision automatically about which car is better. We do rankings based on several specs and then present a collective rank of cars."}} />
+                                            </div>
+                
+                                        </div>
+                                        <div className="row flex-row-reverse">
+                                            
+                                            <div className="col-md-6 mb-3">
+                                                <ServiceItem data={{"title":"Cars Data", "description":"If you are looking for cars data, we would be happy to share. We have data for more than 100K cars. Each car has more than 30+ specs. Please contact us at suggestrank@gmail.com"}}  reverse={true}/>
+                                            </div>
+                
+                                            <div className="col-md-6 mb-3">
+                                                <ServiceItem data={{"title":"Cars Specs", "description":"We have possibly all makes and models. So, if you are looking for the car specs of any car, we have them for you. You can check the specs related to Engine, dimensions, power, emission, etc."}} />
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
+            
+                    } else if (index === 3) {
+                        return  <div className="section text-end section-action">
+                        <div className="container">
+                            <h1>Are you planning <br/>to buy a new car,<br/>compare cars today.</h1>
+                            <h4>Our car comparison tool helps you with <br/>clear difference between your chosen cars.</h4>
+                
+                            <Link href="/compare/cars"><button className="btn-compare">Compare</button></Link>
+                        </div>
+                    </div>
+                    } else if (index === 4) {
+                        return <div className="container">
+                        <div className="row">
+                            <div className="col-md-8">
+                                <div className="section">
+                                    <div className="section-title">
+                                        <h4>Popular Articles</h4>
+                                    </div>
+                    
+                                    <div className="section-content">
+                                        <div className="row">
+                                            {this.state.data.popularArticles&&this.state.data.popularArticles.map((item, index) =>
+                                                <div style={{cursor:"pointer"}} className="col-md-6 mb-2">
+                                                    <PopularArticle articleData={item} key={index}/>
+                                                </div>
+                                            )}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="col-md-4">
+                                <div className="section recent-article">
+                                    <div className="section-title title-left">
+                                        <h4>Recent Articles</h4>
+                                    </div>
+                    
+                                    <div className="section-content">
+                                        
+                                        {this.state.data.recentArticles&&this.state.data.recentArticles.map((item, index) =>
+                                            <div className="mb-2">
+                                                <RecentArticle articleData={item} key={index}/>
+                                            </div>
+                                        )}
+                    
+                                        <div className="btn-wrapper mt-3">
+                                            <button className="btn-compare">View All Articles</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> 
+                        </div>
+                    </div>
+        
+                    }
+                })}
+
+            
+            </InfiniteScroll>
+           
+        
+        
+           
         </div>
         </>
         )
@@ -265,25 +332,12 @@ export async function getStaticProps() {
     const res = await fetch(process.env.REACT_APP_API_HOST+"/api/v2/car/makes");
     const makes = await res.json();
     
-    const comparisonsResults = await fetch(process.env.REACT_APP_API_HOST+"/api/v2/car/popular-comparisons");
-    const comparisons = await comparisonsResults.json();
+    
 
-    const postsResult = await fetch("https://suggestrank.com/blog/wp-json/wp/v2/posts?&page=1&per_page=4&_embed");
-    const posts = await postsResult.json();
-    var postsArray = [];
-    for (var i = 0; i < posts.length; i++) {
-        var post = posts[i];
-        var imageUrl = post.qubely_featured_image_url.portraits[0];
-        var date = new Date(post.date).toDateString();
-        var title = post.title.rendered.replace(/\s\s+/g, ' ').replace(/<[^>]+>/g, '').replace("&#8211;", " - ");
-        // var content = new DOMParser().parseFromString(post.content.rendered.replace(/\s\s+/g, ' '), "text/html").documentElement.textContent.replace(/\n/g, '').replace(/(.{2000}).+/, "$1...");
-        var content = post.content.rendered.replace(/\s\s+/g, ' ').replace(/<[^>]+>/g, '');
-        var link = post.link;
-        postsArray.push({"imageUrl":imageUrl, "date":date, "title":title, "content":content, "link":link});
-    }
+    
     
     return {
-      props: {"makes":makes, "popularComparisons":comparisons, "popularArticles":postsArray}, // will be passed to the page component as props
+      props: {"makes":makes}, // will be passed to the page component as props
       
     }
   }

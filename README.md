@@ -34,3 +34,5 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 
 npm install --save-dev image-trace-loader
+
+npm install --save react-infinite-scroll-component
