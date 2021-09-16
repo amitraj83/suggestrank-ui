@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Image from 'next/image'
 
 export default class CompareResultCar extends Component {
     constructor(props) {
@@ -7,25 +8,41 @@ export default class CompareResultCar extends Component {
 
         }
     }
-
+    
 render() {
     return (<div >
     
     
     <div  className="item-img mb-3" >
-        <picture>
-            <source  srcSet={require('../../public/image/medal-'+this.props.data.rank+'.png?webp')} type="image/webp" 
-            style={{position:'absolute', height:"40px", width:"40px", marginLeft:"-40px"}}  /> 
-            <source srcSet={require('../../public/image/medal-'+this.props.data.rank+'.png')} type="image/png" 
-            style={{position:'absolute', height:"40px", width:"40px", marginLeft:"-40px"}}  /> 
-            <img style={{position:'absolute', height:"40px", width:"40px", marginLeft:"-40px"}} 
-            src={require('../../public/image/medal-'+this.props.data.rank+'.png')} />
-        </picture>
-        <picture>
-            <source srcSet={this.props.data.image+'?webp'} type='image/webp' />
-            <source srcSet={this.props.data.image} />
-            <img src={this.props.data.image} />
-        </picture>
+    <Image 
+            src={this.props.data.image} 
+            alt="Car" 
+            width='90%' 
+            height='70%' 
+            loading="lazy"
+            layout="responsive"
+            quality="50"
+            placeholder="empty"
+            className="absDiv"
+            
+            /> 
+        <div className="absDiv" style={{top:"30px", width:"40px", height:"40px"}}>
+        
+        <Image
+        src={'/image/medal-'+this.props.data.rank+'.png'} 
+        width="100"
+        height="100%"
+        loading="lazy"
+        placeholder="empty"
+        quality="75"
+        alt="Car rank img" 
+        layout="responsive"/>
+        
+        
+            </div>
+        
+        
+        
     </div>
     <div className="value mb-4">
         <label className="d-block fw-bold">{this.props.data.make+" "+this.props.data.model}</label>

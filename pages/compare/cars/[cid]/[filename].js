@@ -10,6 +10,7 @@ import CompareCarPopularity from '../../../../components/compares/car-compare-po
 import ComparedData from '../../../../components/compares/compared_data'
 import Head from "next/head";
 import ErrorPage from '../../../errorpage'
+import InfiniteScroll from "react-infinite-scroll-component";
 
 
 function CarComparisonResult (props) {
@@ -19,14 +20,17 @@ function CarComparisonResult (props) {
     const [popularComparisonsPage, setPopularComparisonsPage] = React.useState(1);
     const [isMobile, setIsMobile] = React.useState(false);
     const [statusCode, setStatusCode] = React.useState(props.statusCode);
+    const [items, setItems] = React.useState([1]);
+    const [hasMoreElements, setHasMoreElements] = React.useState(true);
+    const [standaloneDescriptions, setStandaloneDescriptions] = React.useState([]);
+    const [standaloneVerdict, setStandaloneVerdict] = React.useState("");
     const [data, setData] = React.useState( {
                 "headPara": {"title": props.title, "content": props.headPara},
-                "descriptions":props.descriptions,
-                "Verdict": props.verdict,
                 "comparisonFeatures":props.comparisonFeatures,
                 "carsData":props.carsData,
                 "popularComparisons":props.popularComparisons,
-                "specs": props.categorizedSpecs
+                "specs": props.categorizedSpecs,
+                "cid":0
             });
 
         // this.prewCompare = this.prewCompare.bind(this);
@@ -52,6 +56,28 @@ function CarComparisonResult (props) {
         var newData = {...data}
         newData.popularComparisons = comps;
         await setData(newData);
+    }
+
+    const fetchMoreData = async () => {
+        if (items.length > 1) {
+            await setHasMoreElements(false);
+        } else {
+            var newItems = items.concat(Array.from({length:1}));
+            await setItems(newItems);
+            await setHasMoreElements(true);
+        }
+        const comparisonResponse = await fetch(process.env.NEXT_PUBLIC_REACT_APP_API_HOST+"/api/v2/car/comparison-result-content?id="+props.cid);
+        const comparisonsData = await comparisonResponse.json();
+        if (comparisonResponse.ok) {
+            var currentData = data;
+            currentData.descriptions = comparisonsData.descriptions;
+            await setStandaloneDescriptions(comparisonsData.descriptions);
+            currentData.verdict = comparisonsData.verdict;
+            await setStandaloneVerdict(comparisonsData.verdict);
+            await setData(currentData);
+
+        }
+        
     }
     
     useEffect( () => {
@@ -223,21 +249,34 @@ function CarComparisonResult (props) {
                                         )}
                                         
                                     </div>
-                                
-                                    <div className="row">
-                                        {data !== undefined && data.descriptions !== undefined 
-                                            ? data.descriptions.map(d => 
-                                            <div className="col-md-6 mt-4">
-                                                <CardDescription title={d.title} content={d.content}/>
-                                            </div>
-                                            )
-                                            : <></>
-                                        }
+                                    <InfiniteScroll
+                                        dataLength={items.length}
+                                        next={fetchMoreData}
+                                        hasMore={hasMoreElements}
+                                        loader={<center><h4>...</h4></center>}
+                                        style={{ overflow:"inherit"}}
+                                        >
+                                            
+                                                <div className="row">
+                                                    {data !== undefined && data.descriptions !== undefined 
+                                                        ? data.descriptions.map(d => 
+                                                        <div className="col-md-6 mt-4">
+                                                            <CardDescription title={d.title} content={d.content}/>
+                                                        </div>
+                                                        )
+                                                        : <></>
+                                                    }
+                                                    
+                                                    <div className="col-md-12 mt-4">
+                                                        <CardDescription title={"Verdict"} content={standaloneVerdict}/>
+                                                    </div>
+                                                </div>
+                                           
                                         
-                                        <div className="col-md-12 mt-4">
-                                            <CardDescription title={"Verdict"} content={data.Verdict}/>
-                                        </div>
-                                    </div>
+                                        
+                                    </InfiniteScroll>
+                                    
+
                                 </div>
                             </div>
 
@@ -253,16 +292,16 @@ function CarComparisonResult (props) {
                         <div className="prev-next">
                             <div className="pn-item" onClick={prewCompare}>
                             <picture>
-                                <source srcSet={'../..//image/prev.png?webp'} type='image/webp'/>
-                                <source srcSet={'../..//image/prev.png'} type='image/png'/>
-                                <img src={'../..//image/prev.png'} width="100%" height="100%"/>
+                                <source srcSet={'../../image/prev.png?webp'} type='image/webp'/>
+                                <source srcSet={'../../image/prev.png'} type='image/png'/>
+                                <img src={'../../image/prev.png'} width="100%" height="100%"/>
                             </picture>
                             </div>
                             <div className="pn-item">
                             <picture>
-                                <source srcSet={'../..//image/next.png?webp'} type='image/webp'/>
-                                <source srcSet={'../..//image/next.png'} type='image/png'/>
-                                <img src={'../..//image/next.png'}  onClick={nextCompare} width="100%" height="100%"/>
+                                <source srcSet={'../../image/next.png?webp'} type='image/webp'/>
+                                <source srcSet={'../../image/next.png'} type='image/png'/>
+                                <img src={'../../image/next.png'}  onClick={nextCompare} width="100%" height="100%"/>
                             </picture>
                             </div>
                         </div>
@@ -296,12 +335,10 @@ function CarComparisonResult (props) {
 
 export async function getServerSideProps ({query}) {
     
-    // console.log("Page query: "+JSON.stringify(query));
     const comparisonsResults = await fetch(process.env.REACT_APP_API_HOST+"/api/v2/car/popular-comparisons");
     const comparisons = await comparisonsResults.json();
     const comparisonResponse = await fetch(process.env.REACT_APP_API_HOST+"/api/v2/car/comparison-result?id="+query.cid);
     const comparisonsData = await comparisonResponse.json();
-    console.log("Status code: "+comparisonResponse.status);
     if (comparisonResponse.ok) {
         var pageImage = "";
         for(var i = 0; i < comparisonsData.carsData.length; i++) {
@@ -314,8 +351,8 @@ export async function getServerSideProps ({query}) {
         props: {"popularComparisons":comparisons, "comparisonFeatures":comparisonsData.criteria, "title":comparisonsData.title,
                     "headPara":comparisonsData.headPara, "threeCarsComparison":comparisonsData.threeCarsComparison,
                 "carsData":comparisonsData.carsData, "categorizedSpecs":comparisonsData.categorizedSpecs,
-                "descriptions":comparisonsData.descriptions, "verdict":comparisonsData.verdict, "pageImage":pageImage,
-            "url":comparisonsData.url, "statusCode":comparisonResponse.status}, // will be passed to the page component as props
+                 "pageImage":pageImage,
+            "url":comparisonsData.url, "statusCode":comparisonResponse.status, "cid":query.cid}, // will be passed to the page component as props
         }
     } else {
         return {props: {"statusCode":comparisonResponse.status},}
