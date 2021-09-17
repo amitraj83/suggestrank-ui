@@ -11,14 +11,14 @@ export default class Footer extends Component {
                           <picture>
                           <source  srcSet={require('../../public/image/footer-logo.png?webp')} type='image/webp'/>
                           <source  srcSet={require('../../public/image/footer-logo.png')} type='image/png'/>
-                          <img  src={require('../../public/image/footer-logo.png')} width="100%" height="100%"/>
+                          <img  src={require('../../public/image/footer-logo.png')} width="100%" height="70%" alt="SuggestRank logo"/>
                           </picture>
                       </div>
                       <div className="row">
                           <div className="col-md-6 mt-3">
                               <div className="footer-section">
                                   <div className="footer-section-title text-uppercase">
-                                      <h5 className="mb-3">Quicklinks</h5>
+                                      <h4 style={{"color": "#fca311"}}>Quicklinks</h4>
                                   </div>
                                   <div className="footer-section-links">
                                       <a className="footer-link d-block mt-2" href="/">Home</a>
@@ -40,7 +40,7 @@ export default class Footer extends Component {
                                           <input className="form-control form-control-sm fs-7" placeholder="Email address"/>
                                       </div>
                                       <div className="col-md-4 mb-2">
-                                          <button className="btn-compare d-block">Join</button>
+                                          <button className="btn-compare d-block"><h5 style={{"color": "#14213d","font-weight": "bold"}}>Join</h5></button>
                                       </div>
                                   </div>
                               </div>
@@ -55,16 +55,16 @@ export default class Footer extends Component {
                           </div>
 
                           <div className="contact-item mb-3">
-                              <h6 className="mb-0">Mail us at</h6>
-                              <h4 className="fw-bold">suggestrank@gmail.com</h4>
+                              <h5 className="mb-0">Mail us at</h5>
+                              <h6 className="fw-bold">suggestrank@gmail.com</h6>
                           </div>
 
                           <div className="contact-item mb-3">
                               <h6 className="mb-2">Follow us on</h6>
                               <div className="footer-social-icons">
-                                  <a style={{color:"#14213d"}} href="https://www.facebook.com/suggestrank"><i className="fab fa-facebook"></i></a>
-                                  <a style={{color:"#14213d"}} href="https://twitter.com/RankSuggest"><i className="fab fa-twitter"></i></a>
-                                  <a style={{color:"#14213d"}} href="https://www.youtube.com/channel/UCeDWw9Kj-NfyPGBVwhOP1Hw/about"><i className="fab fa-youtube"></i></a>
+                                  <a style={{color:"#14213d"}} href="https://www.facebook.com/suggestrank"><img src={require('../../public/image/facebook.svg')} alt="SuggestRank facebook"/></a>
+                                  <a style={{color:"#14213d"}} href="https://twitter.com/RankSuggest"><img src={require('../../public/image/twitter.svg')} alt="SuggestRank Twitter"/></a>
+                                  <a style={{color:"#14213d"}} href="https://www.youtube.com/channel/UCeDWw9Kj-NfyPGBVwhOP1Hw/about"><img src={require('../../public/image/youtube.svg')} alt="SuggestRank Youtube"/></a>
                                   
                               </div>
                           </div>

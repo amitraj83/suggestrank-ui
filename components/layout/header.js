@@ -22,9 +22,9 @@ function Header (props) {
                     </div>
                     <div className="h-right">
                         <span>Follow us on</span>
-                        <a style={{color:"white"}} href="https://www.facebook.com/suggestrank"><i className="fab fa-facebook"></i></a>
-                        <a style={{color:"white"}} href="https://twitter.com/RankSuggest"><i className="fab fa-twitter"></i></a>
-                        <a style={{color:"white"}} href="https://www.youtube.com/channel/UCeDWw9Kj-NfyPGBVwhOP1Hw/about"><i className="fab fa-youtube"></i></a>
+                        <a style={{color:"white"}} href="https://www.facebook.com/suggestrank"><img src={require('../../public/image/facebook.svg')} alt="SuggestRank facebook" style={{marginRight:"5px"}}/></a>
+                        <a style={{color:"white"}} href="https://twitter.com/RankSuggest"><img src={require('../../public/image/twitter.svg')} alt="SuggestRank Twitter" style={{marginRight:"5px"}}/></a>
+                        <a style={{color:"white"}} href="https://www.youtube.com/channel/UCeDWw9Kj-NfyPGBVwhOP1Hw/about"><img src={require('../../public/image/youtube.svg')} alt="SuggestRank Youtube" style={{marginRight:"5px"}}/></a>
                         
                     </div>
                 </div>
@@ -36,11 +36,11 @@ function Header (props) {
                             <picture>
                                 <source className="logo" srcSet={require('../../public/image/logo.png?webp')} type="image/webp" />
                                 <source className="logo" srcSet={require('../../public/image/logo.png')} type="image/png"/>
-                                <img className="logo" src={require('../../public/image/logo.png')} width="100%" height="100%"/>
+                                <img className="logo" src={require('../../public/image/logo.png')} width="100%" height="70%" alt="SuggestRank"/>
                             </picture>
                             <div className="w-100 text-end">
-                                <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#myNavbar">
-                                    <i class="far fa-bars"></i>
+                                <button aria-label="Open Menu" className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#myNavbar">
+                                    <img src={require('../../public/image/align-justify.svg')} width="40px" height="30px" alt="Menu"/>
                                 </button>
                             </div>
                         </div>

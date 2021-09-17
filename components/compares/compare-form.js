@@ -97,7 +97,7 @@ export default class CompareForm extends Component {
         return (
             <div>
                 <div className="top-txt">
-                    <h4 className="fw-bold mb-0">Select any two cars to compare</h4>
+                    <h3 className="fw-bold mb-0">Compare two cars </h3>
                     <span className="">Our car comparison tool helps you with clear difference between your chosen cars.</span>
                     <div className="btn-wrapper d-lg-inline-block d-none">
                     <Link href="/compare/cars"><button onClick={this.props.compare} className="btn-compare reverse">Compare</button></Link>
@@ -137,7 +137,7 @@ export default class CompareForm extends Component {
                         <picture>
                         <source  srcSet={require('../../public/image/vs.png?webp')} type='image/webp' />
                         <source  srcSet={require('../../public/image/vs.png')} type='image/png'/>
-                        <img  src={require('../../public/image/vs.png')} width="100%" height="100%"/>
+                        <img  src={require('../../public/image/vs.png')} width="100%" height="100%" alt="versus"/>
                         </picture>
                     </div>
                     <div className="col-md-5">

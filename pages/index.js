@@ -134,15 +134,15 @@ export default class Home extends React.Component {
                                         <div className="container">
                                             <div className="banner-text-wrapper">
                                                 <div className="banner-inner">
-                                                    <h1>Are you confused <br/>between multiple cars to<br/>choose from?</h1>
-                                                    <h4>Our car comparison tool helps you with <br/>clear difference between your chosen cars.</h4>
+                                                    <h1>Most trusted car comparison <br/>tool to find your<br/>dream car.</h1>
+                                                    <h2>Compare cars and find the best one <br/>for you today!</h2>
                                                 </div>
                                             </div>
                                             <div className="compare-wrapper">
                                                 <div className="row">
                                                     <div className="col-md-4 d-lg-block d-none">
                                                         <div className="compare-img">
-                                                        <img src={require('../public/image/car1.webp')} width='100%' height='100%'/>
+                                                        <img src={require('../public/image/car1.webp')} width='100%' height='50%' alt="Compare two cars"/>
                                                         </div>
                                                     </div>
                                                     <div className="col-md-8">
@@ -165,14 +165,14 @@ export default class Home extends React.Component {
              <picture>
                  <source srcSet={'/image/prev.png?webp'} type='image/webp'/>
                  <source srcSet={'/image/prev.png'} type='image/png'/>
-                 <img src={'/image/prev.png'} width="100%" height="100%"/>
+                 <img src={'/image/prev.png'} width="100%" height="100%" alt="Popular car comparisons"/>
              </picture>
              </div>
              <div className="pn-item">
              <picture>
                  <source srcSet={'/image/next.png?webp'} type='image/webp'/>
                  <source srcSet={'/image/next.png'} type='image/png'/>
-                 <img src={'/image/next.png'} onClick={this.nextCompare} width="100%" height="100%"/>
+                 <img src={'/image/next.png'} onClick={this.nextCompare} width="100%" height="100%" alt="Popular car comparisons"/>
              </picture>
              </div>
          </div>
@@ -258,7 +258,7 @@ export default class Home extends React.Component {
                     } else if (index === 3) {
                         return  <div className="section text-end section-action">
                         <div className="container">
-                            <h1>Are you planning <br/>to buy a new car,<br/>compare cars today.</h1>
+                            <h2>Are you planning <br/>to buy a new or used car,<br/>compare cars today.</h2>
                             <h4>Our car comparison tool helps you with <br/>clear difference between your chosen cars.</h4>
                 
                             <Link href="/compare/cars"><button className="btn-compare">Compare</button></Link>
