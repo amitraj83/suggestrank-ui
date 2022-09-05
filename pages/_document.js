@@ -18,7 +18,9 @@ class MyDocument extends Document {
             href="/favicon.ico"
           />
        
-          
+       <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5118913869042644"
+         crossorigin="anonymous"></script>
+
           <script async defer src="https://www.googletagmanager.com/gtag/js?id=G-7D68J6S46J"></script> 
           <script async defer dangerouslySetInnerHTML={{__html:`
             window.dataLayer = window.dataLayer || [];
