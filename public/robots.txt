@@ -6,6 +6,7 @@ User-agent: google
 User-agent: bingbot
 User-agent: bing
 User-agent: AhrefsBot
+User-agent: Mediapartners-Google
 Disallow: 
 
 User-agent: *
